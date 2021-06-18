@@ -2,8 +2,6 @@ const app = document.querySelector('#app');
 
 /*
 
-    0. Account for 404
-
     MAKE IT DRY AND SOLID...
 
     1. Abstract each view function into a separate module
@@ -33,6 +31,10 @@ function returnHomePage(props) {
 
 function returnLoadingPage() {
     return `<h1>Loading...</h1>`;
+}
+
+function return404Page(props) {
+    return `<h1>404 ERROR</h1>`
 }
 
 function returnPostsPage(props) {
@@ -110,6 +112,10 @@ function buildView(props, URI, main) {
  */
 function createView(URI) {
     const route = routes[URI];
+    if (route === undefined) {
+        buildView(null, URI, return404Page);
+        return;
+    }
     buildView(null, location.pathname, returnLoadingPage); // change view to loading screen
     // fetch data
     const promises = [];
