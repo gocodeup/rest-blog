@@ -1,3 +1,10 @@
+import Home from './views/Home.js';
+import Loading from './views/Loading.js';
+import Error404 from './views/Error404.js';
+import PostIndex from './views/PostIndex.js';
+import About from './views/About.js';
+import Navbar from './views/partials/Navbar.js';
+
 const app = document.querySelector('#app');
 
 /*
@@ -12,83 +19,22 @@ const app = document.querySelector('#app');
 
  */
 
-// =================== Views
-
-function returnHomePage(props) {
-    return `
-        <header>
-            <h1>Home Page</h1>
-        </header>
-        <main>
-            <div>
-                <p>
-                    This is the home page text.
-                </p>    
-            </div>
-        </main>
-    `;
-}
-
-function returnLoadingPage() {
-    return `<h1>Loading...</h1>`;
-}
-
-function return404Page(props) {
-    return `<h1>404 ERROR</h1>`
-}
-
-function returnPostsPage(props) {
-    return `
-        <header>
-            <h1>Posts Page</h1>
-        </header>
-        <main>
-            <div>
-                ${props.posts.map(post => `<h3>${post.title}</h3>`).join('')}   
-            </div>
-        </main>
-    `;
-}
-
-function returnAboutPage(props) {
-    return `
-        <header>
-            <h1>About Page</h1>
-        </header>
-        <main>
-            <div>
-                <p>About page is here.</p>  
-            </div>
-        </main>
-    `;
-}
-
-// =================== Fragments
-
-const navbar = `
-    <nav>
-        <a href="/" data-link>Home</a>
-        <a href="/posts" data-link>Posts</a>
-        <a href="/about" data-link>About</a>
-    </nav>
-`;
-
 // =================== Routes
 
 const routes = {
     '/': {
-        buildView: returnHomePage,
+        buildView: Home,
         state: {}
     },
     '/posts': {
-        buildView: returnPostsPage,
+        buildView: PostIndex,
         state: {
             posts: '/api/posts',
             entities: '/api/entities'
         }
     },
     '/about': {
-        buildView: returnAboutPage,
+        buildView: About,
         state: {}
     }
 };
@@ -103,7 +49,7 @@ const routes = {
  */
 function buildView(props, URI, main) {
     history.pushState(props, null, URI);
-    app.innerHTML = `${navbar} ${main(props)}`;
+    app.innerHTML = `${Navbar(null)} ${main(props)}`;
 }
 
 /**
@@ -113,10 +59,10 @@ function buildView(props, URI, main) {
 function createView(URI) {
     const route = routes[URI];
     if (route === undefined) {
-        buildView(null, URI, return404Page);
+        buildView(null, URI, Error404);
         return;
     }
-    buildView(null, location.pathname, returnLoadingPage); // change view to loading screen
+    buildView(null, location.pathname, Loading); // change view to loading screen
     // fetch data
     const promises = [];
 
