@@ -15,7 +15,9 @@ export default function router(URI) {
             returnView: Home,
             state: {},
             uri: '/',
-            title: 'Home'
+            title: 'Home',
+            // TODO: flesh out auth
+            // requiresAuth: checkBackend
         },
         '/posts': {
             returnView: PostIndex,
@@ -24,25 +26,33 @@ export default function router(URI) {
                 entities: '/api/entities'
             },
             uri: '/posts',
-            title: 'All Posts'
+            title: 'All Posts',
+            // TODO: flesh out auth
+            // requiresAuth: checkBackend
         },
         '/about': {
             returnView: About,
             state: {},
             uri: '/about',
-            title: 'About'
+            title: 'About',
+            // TODO: flesh out auth
+            // requiresAuth: checkBackend
         },
         '/error': {
             returnView: Error404,
             state: {},
             uri: location.pathname,
-            title: ' ERROR'
+            title: ' ERROR',
+            // TODO: flesh out auth
+            // requiresAuth: checkBackend
         },
         '/loading': {
             returnView: Loading,
             state: {},
             uri: location.pathname,
-            title: 'Loading...'
+            title: 'Loading...',
+            // TODO: flesh out auth
+            // requiresAuth: checkBackend
         }
     };
 
