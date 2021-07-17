@@ -16,6 +16,7 @@ public class User {
     private String username;
     private String password;
     private boolean isAdmin = false;
+    private boolean isActive = false;
 
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
@@ -23,9 +24,11 @@ public class User {
         username = copy.username;
         password = copy.password;
         isAdmin = copy.isAdmin;
+        isActive = copy.isActive;
     }
 
-    public User(){}
+    public User() {
+    }
 
     public long getId() {
         return id;
@@ -59,7 +62,28 @@ public class User {
         this.password = password;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public String getRole() {
         return isAdmin ? "ADMIN" : "USER";
     }
+
+    public String getStatus() {
+        return isActive ? "ACTIVE" : "INACTIVE";
+    }
+
 }
