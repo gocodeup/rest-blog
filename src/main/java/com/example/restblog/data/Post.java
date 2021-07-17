@@ -1,12 +1,10 @@
 package com.example.restblog.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -20,8 +18,13 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private long id;
-    private long user_id;
+    @NotNull
     private String title;
+    @NotNull
     private String content;
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private User user;
 
 }

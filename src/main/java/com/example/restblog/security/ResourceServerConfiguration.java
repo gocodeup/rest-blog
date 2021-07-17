@@ -1,5 +1,7 @@
 package com.example.restblog.security;
 
+import com.example.restblog.errors.CustomAccessDeniedHandler;
+import com.example.restblog.errors.CustomAuthenticationEntryPoint;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -10,6 +12,12 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+    public ResourceServerConfiguration(CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
+        this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
+    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
@@ -25,14 +33,14 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .anonymous()
             .and()
                 .authorizeRequests()
-                .antMatchers("/api/posts").permitAll()
+                .antMatchers("/api/posts", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
             .and()
                 .authorizeRequests()
-//                .antMatchers("/api/glee/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/api/users/**").hasAuthority("ADMIN")
+                .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/api/**").authenticated()
-                .anyRequest().authenticated();
-//                .and().exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
+                .anyRequest().authenticated()
+            .and()
+                .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
     }
 
 }

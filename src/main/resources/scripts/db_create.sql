@@ -4,19 +4,18 @@ CREATE DATABASE if not exists blog_db;
 
 # CREATE USER casey_blog@localhost IDENTIFIED BY 'codeup12';
 
-GRANT ALL ON blog_db.* TO root@localhost;
+GRANT ALL ON blog_db.* TO casey_blog@localhost;
 
 USE blog_db;
 
 
 CREATE TABLE users
 (
-    id        BIGINT       NOT NULL AUTO_INCREMENT,
-    username  VARCHAR(60)  NOT NULL,
-    password  VARCHAR(60)  NOT NULL,
-    email     VARCHAR(200) NOT NULL,
-    is_admin  BOOLEAN      NOT NULL,
-    is_active BOOLEAN      NOT NULL,
+    id       BIGINT       NOT NULL AUTO_INCREMENT,
+    username VARCHAR(60)  NOT NULL,
+    password VARCHAR(60)  NOT NULL,
+    email    VARCHAR(200) NOT NULL,
+    role     VARCHAR(32)  NOT NULL,
     PRIMARY KEY (id)
 
 );
