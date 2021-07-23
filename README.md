@@ -49,3 +49,26 @@ Normally, these components are divided into two applications: one for the Auth s
 In our case, we can use Spring Security OAuth2 Autoconfigure to bring all of these components under the same umbrella.
 This makes the development experience much more seamless because we are already placing the Client and Resource server in one project.
 
+###Auth Flow
+
+(If the user exists already, skip to step 3)
+1. The Client sends a POST request to ```/api/users``` to make a new User
+2. On successful creation, server redirects to ```/oauth/token``` with User credentials
+3. ```/oauth/token``` responds to ORIGINAL request route with an ```access_token``` and ```refresh_token```
+4. Client accepts the response and places tokens into ```localStorage```
+5. The Resource Owner (new User) is now 'logged in' and may begin making requests to protected endpoints.
+    - When making requests to ```/api/*```, the Client must include the ```access_token``` as an ```Authorization``` header of type ``Bearer``
+  ```
+  {
+  "headers": {
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiYXBpIl0sInVzZXJfbmFtZSI6InNhbXVlbEBjb2RldXAuY29tIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTYyNzEwMzU3OSwiYXV0aG9yaXRpZXMiOlsiVVNFUiJdLCJqdGkiOiJhYTFiZGE5MS0zZjAxLTQ4YzMtYmNiNC03MzYyZTkwMWJlMzQiLCJjbGllbnRfaWQiOiJyZXN0LWJsb2ctY2xpZW50In0.gmEVUs2xYgmCGxVc7IYPC0Lhw5LUuiAQVjLQD_UrOpA",
+    "content-type": "application/json",
+  },
+  "referrer": "http://localhost:8080/posts",
+  "method": "GET"
+}
+```
+
+#### ***Of Note:*** 
+If the server shuts down, the tokens become invalid. The User must log in again.
+
