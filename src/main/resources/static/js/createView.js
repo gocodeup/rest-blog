@@ -1,6 +1,7 @@
 import render from './render.js';
 import router from './router.js';
 import fetchData from "./fetchData.js";
+import {getAuthBearerTokenHeader} from "./auth.js";
 
 /**
  * Finds the correct route for a given view, builds a loading view, fetches data and builds the final rendered view.
@@ -17,6 +18,7 @@ export default function createView(URI) {
     }
 
     // unsecured views get rendered
+    // TODO: requiresAuth will make more sense when we get to Create, Update, Delete functionality
     if (!route.requiresAuth) {
         renderOpenView(route);
         return;
@@ -25,7 +27,9 @@ export default function createView(URI) {
     // change view to loading screen
     render(null, router('/loading'));
 
-    fetchData(route.state).then((props) => {
+    console.log("Header:")
+    console.log(getAuthBearerTokenHeader());
+    fetchData(route.state, getAuthBearerTokenHeader()).then((props) => {
         render(props, route);
     });
 }
@@ -39,4 +43,5 @@ function renderOpenView(route) {
         setTimeout(route.viewEvent, 500);
     }
 }
+
 

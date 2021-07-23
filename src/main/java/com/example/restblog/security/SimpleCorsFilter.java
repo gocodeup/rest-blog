@@ -13,6 +13,8 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter implements Filter {
 
+    //TODO: This class needs to be only used under a 'dev' profile.
+    //  -> Its purpose is to allow looser filters for doing dev work
     public SimpleCorsFilter() {
     }
 

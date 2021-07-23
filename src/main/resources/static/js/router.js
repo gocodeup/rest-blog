@@ -4,7 +4,7 @@ import About from "./views/About.js";
 import Error404 from "./views/Error404.js";
 import Loading from "./views/Loading.js";
 import Login from "./views/Login.js";
-import fetchData from "./fetchData.js";
+import LoginEvent from "./auth.js";
 
 /**
  * Returns the route object for a specific route based on the given URI
@@ -27,7 +27,7 @@ export default function router(URI) {
             uri: '/login',
             title: "Login",
             requiresAuth: false,
-            viewEvent: addLoginEvent
+            viewEvent: LoginEvent
         },
         '/posts': {
             returnView: PostIndex,
@@ -68,30 +68,3 @@ export default function router(URI) {
     return routes[URI];
 }
 
-let addLoginEvent = () => {
-    document.querySelector("#login-btn").addEventListener("click", function () {
-        let obj = {
-            username: document.querySelector("#username").value,
-            password: document.querySelector("#password").value,
-            grant_type: 'password'
-        }
-
-        let request = {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + btoa('rest-blog-client:secret')
-            },
-            body: `grant_type=${obj.grant_type}&username=${obj.username}&password=${obj.password}&client_id=rest-blog-client`
-        };
-
-        fetchData(
-            {
-                route: `/oauth/token`
-            },
-            request).then((data) => {
-            localStorage.setItem("access_token", data.route['access_token']);
-            localStorage.setItem("refresh_token", data.route['refresh_token']);
-        });
-    });
-}

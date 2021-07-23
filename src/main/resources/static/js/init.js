@@ -5,8 +5,7 @@ import createView from './createView.js';
  */
 function loadViewOnPageRequest() {
     window.addEventListener('DOMContentLoaded', function() {
-        console.log("verified full static resource reload");
-        console.log(location.pathname);
+        //TODO: Switched to location.pathname so the route would be accurate to current view
         createView(location.pathname);
     });
 }

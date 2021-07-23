@@ -9,7 +9,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping(value="/api/posts", headers="Accept=application/json")
 public class PostsController {
 
     private final PostRepository postDao;

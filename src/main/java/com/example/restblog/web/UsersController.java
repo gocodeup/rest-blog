@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping(value="/api/users", headers="Accept=application/json")
 @Slf4j
 class UsersController {
     private final UserRepository repository;
