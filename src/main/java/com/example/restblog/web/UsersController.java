@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @Slf4j
-@Validated
 class UsersController {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
