@@ -6,6 +6,7 @@ used to bind models (POJOs) to HTML.
 However, we will be using Thymeleaf to help serve static assets as our Javascript will be responsible
 for binding data to a view via the DOM.
 
+---
 ## Including Thymeleaf in the project
 
 Add the following to your `pom.xml`.
@@ -21,7 +22,7 @@ We are adding what Spring Boot calls a 'starter', which is basically a single,
 or multiple dependencies that allow us to use some piece of functionality in our
 project. Using Spring Boot starters lets us ensure the versions of all the
 dependencies we are using play nice together, and do not contain any conflicts.
-
+---
 ## Using Thymeleaf
 
 First, we will create a controller that returns a view.
@@ -74,19 +75,8 @@ We must do the following to use Thymeleaf:
 - include the `xmlns:th="http://www.thymeleaf.org"` attribute in your `html`
   tag
 
-
-
-## Further Reading
-
-- [Thymeleaf Documentation](http://www.thymeleaf.org/documentation.html)
-- [Layouts, templating and partials](http://www.thymeleaf.org/doc/articles/layouts.html)
-- [Thymeleaf Expression Language](http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html)
-
-## Exercises
-
-------------------------------------------------------------------------------
-
-###Creating an endpoint to serve static assets
+---
+##Creating an endpoint to serve static assets
 
 Our eventual blog application will have two "realms". One will be on 
 `/` for the purpose of only serving static assets (HTML, CSS, JS).
@@ -113,6 +103,15 @@ For now, let's focus on creating an endpoint which will serve up the static asse
    
 4. For now, you should be able to start your application and navigate to `http://localhost:8080/`
     - You should see a basic landing page at this point with a nav bar.
-    
 
-##Next Up: [Rest Controllers](5-rest.md)
+
+---
+
+## Further Reading
+
+- [Thymeleaf Documentation](http://www.thymeleaf.org/documentation.html)
+- [Layouts, templating and partials](http://www.thymeleaf.org/doc/articles/layouts.html)
+- [Thymeleaf Expression Language](http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html)
+
+
+##Next Up: [Rest Controllers](../5-rest.md)

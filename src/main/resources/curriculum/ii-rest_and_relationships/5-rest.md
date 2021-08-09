@@ -1,6 +1,6 @@
 #REST and RESTful APIs
 
-###What is REST and what makes a RESTful API?
+##What is REST and what makes a RESTful API?
 
 In Roy Fielding's doctoral dissertation, he outlined an architecture for web communication called
 
@@ -33,7 +33,7 @@ According to RedHat, the constraints needed for a RESTful API are:
 ```
 
 
-
+---
 ###Important points to remember: 
 
 ###REST is not a protocol or a standard - it is a set of constraints.
@@ -45,5 +45,6 @@ According to RedHat, the constraints needed for a RESTful API are:
 
 ####To read Roy Fielding's own work on this concept, [go here](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)
 
+---
 ##Next Up: [Rest Controllers](6-rest-controllers.md)
 

@@ -12,18 +12,18 @@ import java.util.List;
 @RequestMapping(value="/api/posts", headers="Accept=application/json")
 public class PostsController {
 
-    private final PostRepository postDao;
+    private final PostRepository postRepository;
 
     public PostsController(PostRepository postRepository) {
-        this.postDao = postRepository;
-        System.out.println(postDao.findAll());
+        this.postRepository = postRepository;
+        System.out.println(postRepository.findAll());
     }
 
     @GetMapping
     private List<Post> getPosts() {
         List<Post> posts = new ArrayList<>();
         try {
-            posts = postDao.findAll();
+            posts = postRepository.findAll();
             System.out.println(posts);
         } catch (Exception ex) {
             System.out.println(ex.getLocalizedMessage());
@@ -34,7 +34,7 @@ public class PostsController {
     @PostMapping
     private void createPost(@RequestBody Post newPost) {
         try {
-            postDao.save(newPost);
+            postRepository.save(newPost);
         } catch (Exception ex) {
             System.out.println(ex.getLocalizedMessage());
         }
