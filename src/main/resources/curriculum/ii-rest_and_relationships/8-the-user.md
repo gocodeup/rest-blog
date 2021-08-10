@@ -17,7 +17,7 @@ By creating a `Post` object and a controller to help perform CRUD, we nailed dow
 Now, we need to fill out #2: **Who interacts with the application and what can they ask it to do?**
 
 ---
-## Creating the `User`
+## How to define the `User`
 
 We need to think about ***necessary*** information on the user of our the application.
 
@@ -39,6 +39,8 @@ We need to think about ***necessary*** information on the user of our the applic
 
 For now, let's focus on the basics of our `User` by creating a model with a few key properties:
 
+---
+### TODO: Implement the `User`
 1. Inside the `data` package, create a class named `User`
 
 
@@ -66,7 +68,7 @@ public class User {
 - All getters and setters
 
 ---
-## The `UsersController`
+### TODO: Implement the `UsersController`
 
 We can now set up a REST Controller for the purpose of running CRUD operations related to the `User`.
 
@@ -75,15 +77,89 @@ We can now set up a REST Controller for the purpose of running CRUD operations r
 1. In the package `web`, create a class called `UsersController`.
 
 
-2. For filling out the class, follow the same pattern as found in [Rest Controllers](6-rest-controllers.md)
+2. While filling out the class, follow the same pattern as found in [Rest Controllers](6-rest-controllers.md)
    and [Rest Controllers, Pt II](7-rest-controllers.md).
-    - **Make sure the `@RequestMapping` value is set to `/api/users`**
-    - Similarly, ***don't copypasta***. You will more than likely forget to replace one of those `Post` references
-      with `User`
-      and waste your own time tracking down the issue.
+   - **Make sure the class' `@RequestMapping` value is set to `/api/users`**
+   - Similarly, ***don't copypasta***. You will more than likely forget to replace one of those `Post` references
+   with `User`
+and waste your own time tracking down the issue.
 
 
 3. Did we mention you should test each method in Swagger as you are writing them?
+
+---
+
+### TODO: Register the `User` Client-Side
+
+`resources/static/js/views/Login.js`
+shows us how we can begin a view for creating users.
+
+1. In `resources/static/js/views/`, create `Register.js`
+   
+
+2. Following what you see in `Login.js`, create a form allowing a new user to register with our application.
+   - They need to be able to enter their `username`, `email`, and `password`.
+   - A button will be needed for allowing the user to submit their inputs.
+
+
+3. **Ensure the password input is hidden.** (there is an HTML input attribute for this!)
+
+
+4. Open `js/router.js`. In here, you will find a template for how to add a property to allow for the registration view to be rendered.
+   
+```JAVASCRIPT
+'/login': {
+   returnView: Login,
+   state: {},
+   uri: '/login',
+   title: "Login",
+   viewEvent: LoginEvent
+}
+```
+
+- Make an object with the same properties and replace the `login` references with `register`.
+
+
+5. Notice `viewEvent: LoginEvent` above? You will need your own function to serve as a callback for `/register`. 
+   - When the user submits the form, your JavaScript listens for that button click. 
+   - You will need to add an event listener to that button when it is rendered.
+   - After the click, grab the input values from the DOM, bundle them together in an object which mimics the backend `User` properties.
+   - Do not worry with the `Role`, `Posts`, or `Id`. This is only for registration!
+   
+
+Still in your `RegisterEvent` function, add this bit to the bottom:
+```JAVASCRIPT
+let request = {
+   method: "POST",
+   body: **YOUR USER OBJECT**
+};
+
+fetchData(
+   {
+       route: `/api/users`
+   },
+   request).then((data) => {
+   setTokens(data);
+   createView("/");
+});
+```
+
+Now, add `RegisterEvent()` as the `viewEvent` property for `/register` in `route.js`:
+
+```JAVASCRIPT
+'/register': {
+   returnView: Register,
+   state: {},
+   uri: '/register',
+   title: "Register",
+   viewEvent: RegisterEvent
+}
+```
+
+
+Once you plug this in, now attempt to create a user from the client-side!
+
+Check the database to see if your `User` object is in place - take note of the `id`!
 
 ---
 ## Additional Functionality for the `UsersController`
@@ -104,22 +180,22 @@ This informs us we will need add 4 new methods in `UsersController` and expose r
 1. ***As you complete each method, test in Swagger***
 
 
-2. `findById()` listening on `/api/users/{id}`
+2. `findById()` listening on `{id}`
     - returns a `User`
     - takes in `@PathVariable Long id` as parameter
    
 
-3. `findByUsername()` listening on `/api/users/findByUsername`
+3. `findByUsername()` listening on `/findByUsername`
     - returns a `User`
     - takes in `@RequestParam String username` as parameter
    
 
-4. `findByEmail()` listening on `/api/users/findByEmail`
+4. `findByEmail()` listening on `/findByEmail`
     - returns a `User`
     - takes in `@RequestParam String email` as parameter
    
 
-5. `updatePassword()` listening on `/api/users/{id}/updatePassword`
+5. `updatePassword()` listening on `{id}/updatePassword`
     - returns void
     - takes in 
    ```JAVA

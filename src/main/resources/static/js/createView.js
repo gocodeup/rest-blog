@@ -17,31 +17,16 @@ export default function createView(URI) {
         return;
     }
 
-    // unsecured views get rendered
-    // TODO: requiresAuth will make more sense when we get to Create, Update, Delete functionality
-    if (!route.requiresAuth) {
-        renderOpenView(route);
-        return;
-    }
-
     // change view to loading screen
     render(null, router('/loading'));
 
-    console.log("Header:")
-    console.log(getAuthBearerTokenHeader());
+    let request = {
+
+    }
     fetchData(route.state, getAuthBearerTokenHeader()).then((props) => {
         render(props, route);
     });
 }
 
-function renderOpenView(route) {
-    render(null, router(
-        route.uri
-    ))
-
-    if (route.viewEvent) {
-        setTimeout(route.viewEvent, 500);
-    }
-}
 
 

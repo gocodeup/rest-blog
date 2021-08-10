@@ -1,5 +1,4 @@
-
-export default function Login(props){
+export default function Login(props) {
     return `<!DOCTYPE html>
 <html>
 <head>
