@@ -26,7 +26,7 @@ According to RedHat, the constraints needed for a RESTful API are:
     
 - A layered system that organizes each type of server (those responsible for security, load-balancing, etc) involved in the retrieval of requested information into heirarchies, invisible to the client.
 
-- Code-on-demand: the ability to send executable code from the server to the client when requested, extending client functionality.
+- OPTIONAL: Code-on-demand -> the ability to send executable code from the server to the client when requested, extending client functionality.
 
 ```JAVA
 //TODO: insert illustration of RESTful client-server relationship

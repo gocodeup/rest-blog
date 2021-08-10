@@ -7,8 +7,33 @@ We should now complete our CRUD methods for the `PostsController`.
 So far, we have made the `getPosts()` method and still need `createPost()`, `updatePost()`, and `deletePost()`.
 Later, we will create methods for more fine-tuned CRUD operations (ie: `getById()`, `getByUser()`, etc).
 
+
+Consider this an extended exercise. You will be guided at times and left to work independently at others.
+
 ---
-###`createPost()`
+
+### `@RequestBody`
+
+Remember: `POST`, `PUT`, and `DELETE` requests, there exists a ***body*** property.
+
+This request body will contain pertinent data for our controller method.
+
+In order to access the request body, we add a parameter to our method signature which matches what we expect in the request body.
+
+Then we add `@RequestBody` in *front* of that parameter, like so:
+
+```JAVA
+private void getSomeThings(@RequestBody Stuff myStuff){
+    ...
+}
+```
+
+From this point, Spring will attempt to convert the incoming request body to our desired object (or collection of objects). 
+
+Now, we are free to use the newly acquired parameter same as any other method!
+
+---
+### TODO:  `createPost()` & `@PostMapping`
 
 1. This method will be private, return void (Spring will handle the response), and accept a `Post` object. 
    - Name the `Post` parameter in a way which indicates it is to be created.
@@ -27,9 +52,10 @@ Later, we will create methods for more fine-tuned CRUD operations (ie: `getById(
 5. **Start the server and navigate to `http://localhost:8080/swagger-ui.html`. Then test the POST route on `/api/posts`.**
 
 ---
-###`updatePost()`
+### TODO: `updatePost()` & `@PutMapping`
 
 1. Set up this method much like `createPost()`, replacing `@PostMapping` with `@PutMapping({/{id}})`.
+
 
 2. In addition to `@RequestBody Post post` as a parameter, include `@PathVariable Long id` as the first parameter.
    - Later, this will help us get the `Post` from the database by ID, update it in the code, the save it back to the database.
@@ -38,7 +64,7 @@ Later, we will create methods for more fine-tuned CRUD operations (ie: `getById(
 3. **Start the server and navigate to `http://localhost:8080/swagger-ui.html`. Then test the UPDATE route on `/api/posts`.**
 
 ---
-### `deletePost()`
+### TODO:  `deletePost()` & `@DeleteMapping`
 
 If we remember from the Movies Backend, deleting a record is super easy!
    
@@ -61,6 +87,32 @@ Instead of getting the `Post` ID from the request body, we can grab it from the 
 4. **Start the server and navigate to `http://localhost:8080/swagger-ui.html`. Then test the DELETE route on `/api/posts/{id}`.**
 
 ---
-##Next Up: [The Users Controller](8-the-user.md)
+
+## Back to Javascript!
+
+Now, the time has *finally* come for us to venture back into our client-side!
+
+Your bare-bones JavaScript application could use some love right now...
+
+Using your knowledge of Fetch API, jQuery, Bootstrap, and more, it's time to implement Create, Update, and Delete functionality on our Posts!
+
+But be patient with yourself: ***it's been a while since we dove into JavaScript headlong!***
+
+- Use **Fetch API** to make requests to `http://localhost:8080/posts`
+- Use **Vanilla JS** or **jQuery** to create elements and retrieve data from the DOM
+- Use **Bootstrap** once you are done do make a pleasing layout
+
+
+### TODO: The following is a feature list to be implemented in your client:
+
+#### FEA-1: As a User, I can create posts.
+
+#### FEA-2: As a User, I can edit posts.
+
+#### FEA-3: As a User, I can delete posts.
+
+
+
+##Next Up: [The User](8-the-user.md)
 
 
