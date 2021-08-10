@@ -2,7 +2,9 @@
 
 ## Our first step to developing a RESTful API is to build objects which can handle requests and send meaningful responses.
 
-### To accomplish this, we are going to start with a new type of Spring controller: the `@RestController`.
+### To accomplish this, we are going to start with a *different* type of Spring controller: 
+
+### the `@RestController`.
 
 When we place this annotation above a class declaration, it registers the class with Spring's Dependency Injector and is
 handled in particular ways.
@@ -11,7 +13,7 @@ Among those ways is it eliminates the need to annotate every controller method w
 more fun!
 ---
 
-## Creating a REST Controller
+## TODO: Create a REST Controller
 
 1. Add the following dependency to your `pom.xml`:
 

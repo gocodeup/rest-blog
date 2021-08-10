@@ -14,6 +14,7 @@ Building this application will allow you to learn how Spring handles basic CRUD
 operations, as well as user authentication. In addition, you can use your blog
 as a personal site to show off your Java chops!
 
+---
 ## IntelliJ Setup
 
 IntelliJ has built-in integration with the [Spring Initializr][1], which we will

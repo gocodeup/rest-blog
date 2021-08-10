@@ -1,13 +1,15 @@
 # Building Relationships, Pt II
 
-Now that we've bound Users and Posts together, let's think about using object relationships to add functionality to our
-application.
+Now that we've bound Users and Posts together as a ***one-to-many*** relationship, let's think about binding our objects together in a ***many-to-many***
+relationship within our application.
 
 ---
 
 ## Categories
 
-In many blogging sites, you will see a post with an accompanying set of hashtags (or something similar).
+In many blogging sites, you will see a post with an accompanying set of ***categories***, ***hashtags***, or something similar.
+
+![Blog Hashtags](../hashtags.png)
 
 This is indicating from under which categories a blog post can be found.
 
@@ -15,7 +17,7 @@ Implementing this functionality is actually very simple!
 
 ### The `Category`
 
-We need to create an object to help us with categorizing posts.
+We will create an object which will represent a single category.
 
 Its job is to provide the names of which categories *exist*.
 
@@ -31,12 +33,12 @@ Its job is to provide the names of which categories *exist*.
 
 ---
 
-## Posts and Categories
+### TODO: Posts and Categories as Many-to-Many
 
 It's time to bind our `Post` and `Category` objects together, but first we need to think about the relationship between
 the two.
 
-Unlike Users and Posts, this is going to need to be a ***many-to-many*** relationship:
+**Unlike Users and Posts, this is going to need to be a ***many-to-many*** relationship**:
 
 - One `Category` can be related to many Posts.
     - The `javascript` category could have hundreds of posts associated.
@@ -52,7 +54,7 @@ Thinking about this and how we implemented the Users-Posts relationship, try to 
 
 ---
 
-## The `CategoriesController`
+### TODO: Create the `CategoriesController`
 
 Now that we have this relationship established, let's expose endpoints to provide the functionality to our client.
 
@@ -63,7 +65,7 @@ Now that we have this relationship established, let's expose endpoints to provid
 2. In `CategoriesController`, add a new method: `getByCategory()`
 
 
-3. `getPostsByCategory()` will return a list of `Post` objects with `@GetMapping` to designate the request method.
+3. `getPostsByCategory()` will return a `Category`. Within that category is a list of `Post` objects who have the same  with `@GetMapping` to designate the request method.
 
 
 4. It will accept a parameter: `@RequestParameter String categoryName`

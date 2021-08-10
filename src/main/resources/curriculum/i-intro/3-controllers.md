@@ -1,5 +1,20 @@
 # Controllers
 
+When we weren't using Spring, we had an object called the `HttpServlet`. Extending this class allowed us to register a custom class as a Servlet.
+That servlet could have a predefined path which requests would be routed to:
+
+```JAVA
+@WebServlet(name = "MovieServlet", urlPatterns = "/movies/*")
+```
+
+As we experienced, using Javax was *quite* verbose. We had to manually handle getting our **request body**, writing to our **response**, and converting to/from **JSON**.
+
+Well, fret no more! With Spring, so much of that boilerplate code will be handled by our framework! 
+
+Understand that, under the hood, Spring is mostly doing what we did for ourselves. This means you can have a greater appreciation for what a robust framework can bring to you and how it will speed up your development time!
+
+---
+
 ## Our First Controller
 
 The first step in building our application will be to define a *controller* and
@@ -33,6 +48,7 @@ Lets take a look at the annotations above in more detail.
 - `@ResponseBody`: tells Spring that whatever is returned from this method
   should be the body of our response
 
+---
 ## Path Variables
 
 Spring allows us to use *path variables*, that is, variables that are part of
@@ -64,6 +80,7 @@ Notice in the above example we also used the `@RequestMapping` annotation, which
 is just the longer version of `@GetMapping`. There, of course, also exists a
 `@PostMapping` annotation that tells the controller to respond to POST requests.
 
+---
 ## Further Reading
 
 - [Web MVC Framework](http://docs.spring.io/spring/docs/4.3.5.RELEASE/spring-framework-reference/htmlsingle/#mvc)

@@ -114,4 +114,4 @@ For now, let's focus on creating an endpoint which will serve up the static asse
 - [Thymeleaf Expression Language](http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html)
 
 
-##Next Up: [Rest Controllers](../5-rest.md)
+##Next Up: [Rest Controllers](../ii-rest-and-relationships/5-rest.md)

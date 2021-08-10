@@ -164,9 +164,7 @@ Check the database to see if your `User` object is in place - take note of the `
 ---
 ## Additional Functionality for the `UsersController`
 
-Looking forward, we are going to need more than just the ability to perform basic CRUD for our `User`.
-
-We should also have ways to:
+Looking forward, we need more than the ability to perform basic CRUD for our `User`. Functionality includes:
 
 - Search by the user's
     - ID
