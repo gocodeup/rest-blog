@@ -19,6 +19,6 @@ we will need to take a look at:
 
 ## Creating the Access and Refresh Tokens
 
-In order to authenticate a `User` with our server, the `User` must actually exist and be given a role
+In order to authenticate a `User` with our server, the `User` must actually exist and be given a role.
 
 

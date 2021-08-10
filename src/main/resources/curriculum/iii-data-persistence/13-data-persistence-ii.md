@@ -58,7 +58,7 @@ CREATE TABLE posts (
 ```
 
 As you can see, Hibernate generates a column name based on the property name, in
-this case, the property `owner` generates a column `owner_id`.
+this case, **the property `user` generates a column `user_id`**.
 
 ---
 ## One-to-Many
@@ -83,7 +83,7 @@ public class Post {
 ```java
 @Entity
 @Table(name="post_images")
-public class AdImage {
+public class PostImage {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -99,7 +99,7 @@ public class AdImage {
 The `post_images` definition would look like the following:
 
 ```sql
-CREATE TABLE ad_images (
+CREATE TABLE post_images (
     id BIGINT NOT NULL AUTO_INCREMENT,
     path VARCHAR(255) NOT NULL,
     post_id BIGINT,
@@ -107,6 +107,8 @@ CREATE TABLE ad_images (
     FOREIGN KEY (post_id) REFERENCES posts(id)
 );
 ```
+
+In this case, Hibernate generated a `post_id` column from the `private Post post;` property in `PostImage`
 
 ---
 ## Many-to-Many
@@ -131,6 +133,8 @@ public class Post {
    private List<PostCategory> categories;
 }
 ```
+
+The key part above is `@JoinTable` with the `name`, `joinColumns`, and `inverseJoinColumns` attributes. This is helping inform how to create the eventual `Join Table` in our database.
 
 ```java
 @Entity
@@ -165,10 +169,19 @@ CREATE TABLE post_category (
 );
 ```
 
+###Of Note:
+
+Notice that we did not have to create a POJO for `PostCategory`, yet we have a generated SQL Table called `post_category`?
+
+Hibernate infers that the `@ManyToMany` designation, along with a `List<Post>` on the `Category` object and `List<Category>` on the `Post` object, means you want a Many-To-Many relationship -> meaning, a Join Table called `post_category` should be created.
+
+
+Aren't ORMs great?
+
 ---
 ## Working With Relationships
 
-These are *examples* of using relationships to discover information.
+These are *examples* of using relationships to discover information with Java code.
 
 Here, we get the username of the user who posted an Ad:
 
@@ -192,6 +205,15 @@ postRespository.save(post);
 Notice we are not setting the ID of the `Post`? 
 
 The `id` column is auto-incrementing, so MySQL will take care of this!
+
+---
+
+## TODO: Complete Data Access Layer
+
+1. If you haven't yet, complete the conversion of `User`, `Post`, and `Category` to be entities.
+    - Use annotations in order to do this
+    - Make sure that all **Object Relationships** are in place (1:1, 1:Many, Many:Many)
+    - Create repositories for each object.
 
 ---
 ## Further Reading

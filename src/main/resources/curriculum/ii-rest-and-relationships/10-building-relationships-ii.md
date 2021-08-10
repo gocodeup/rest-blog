@@ -48,7 +48,7 @@ the two.
     - A single post can be filed under `javascript, DOM, and web design`
     
 
-Thinking about this and how we implemented the Users-Posts relationship, try to add the needed fields to `Post` and `Category`
+Thinking about this and how we implemented the Users-Posts relationship, try to add the needed fields to `Post` and `Category`. As well, add the getters/setters
 
 ***Keep in mind that the relationship is slightly different!***
 
@@ -59,13 +59,16 @@ Thinking about this and how we implemented the Users-Posts relationship, try to 
 Now that we have this relationship established, let's expose endpoints to provide the functionality to our client.
 
 1. In the `web` package, create a `CategoriesController`
-    - This REST Controller will accept `application/json` and listen on `/api/posts/categories`
+    - This REST Controller will accept `application/json` and listen on `/api/categories`
 
 
-2. In `CategoriesController`, add a new method: `getByCategory()`
+2. In `CategoriesController`, add a new private method: `getPostsByCategory()`
+    - Annotate with `@GetMapping` to designate the request method.
 
 
-3. `getPostsByCategory()` will return a `Category`. Within that category is a list of `Post` objects who have the same  with `@GetMapping` to designate the request method.
+3. `getPostsByCategory()` will return a `Category`. 
+    - Within that category is a list of `Post` objects which will have the related `Category`
+    - Some `Post` objects *could* have more than one `Category` nested within them. How could we use this in our client-side to provide a more unique experience? 
 
 
 4. It will accept a parameter: `@RequestParameter String categoryName`
@@ -76,6 +79,6 @@ Now that we have this relationship established, let's expose endpoints to provid
     
 ---
 
-## Next Up: [Data Access - now with Spring!](../iii-data_persistence/11-data-persistence.md)
+## Next Up: [Client Integration](11-client-integration.md)
 
 

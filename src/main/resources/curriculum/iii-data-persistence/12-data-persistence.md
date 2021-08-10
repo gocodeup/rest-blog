@@ -108,6 +108,7 @@ Now, hover over that `@Entity` annotation and import the `javax.persistence` pac
 
 ### Primary keys
 
+### `@Id` & `@GeneratedValue`
 Each entity has to have a primary key, which you annotate with the `@Id`
 annotation.
 
@@ -144,6 +145,8 @@ public class Post {
 
 ### Mapping Properties and Fields
 
+
+### `@Column`
 The `@Column` annotation is used to specify the details of the column to which a
 field or property will be mapped. Some of the details are schema related, and
 therefore apply only if the schema is generated from the annotated files.
@@ -228,7 +231,7 @@ specific ad (`getOne`), inserting or updating an ad (`save`), and deleting an
 ad (`delete`).
 
 ---
-## Fleshing out the Data Access Layer
+## TODO: Implement the Data Access Layer
 
 1. Convert the `User` object to a JPA Entity.
 

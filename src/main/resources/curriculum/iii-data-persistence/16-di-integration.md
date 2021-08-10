@@ -50,7 +50,7 @@ public class PostsController {
 Now THAT was easy, huh? 
 
 ---
-## Complete Integration
+## TODO: Complete Integration
 
 1. Finish integrating `Post` repository/controller
 
@@ -61,7 +61,7 @@ Now THAT was easy, huh?
 3. If you need more acute querying for your endpoints, see [Data Persistence, Pt II](14-data-persistence-iii.md).
 
 ---
-## The Moment of Truth.
+## TODO: Testing -> The Moment of Truth.
 
 Now, it's time to spin up your application! 
 

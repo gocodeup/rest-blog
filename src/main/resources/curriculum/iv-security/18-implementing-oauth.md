@@ -2,7 +2,7 @@
 
 Pay close attention to details in this lesson. Naming, placement, and ordering are paramount!
 
-## Resource Owner
+## TODO: Create the Resource Owner
 
 ### 1. Let's drop a few dependencies into our `pom.xml`:
 
@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
 
 ---
 
-## Authentication Server
+## TODO: Create the Authorization Server
 
 ### 1. In `security`, create a class named `ServerSecurityConfig`.
 
@@ -200,7 +200,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
 ---
 
-## Resource Server
+## TODO: Create the Resource Server
 
 ### 1. In `security`, create a class named `ResourceServerConfiguration`.
 
