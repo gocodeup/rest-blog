@@ -7,7 +7,7 @@ However, we will be using Thymeleaf to help serve static assets as our Javascrip
 for binding data to a view via the DOM.
 
 ---
-## Including Thymeleaf in the project
+## TODO: Include Thymeleaf in the project
 
 Add the following to your `pom.xml`.
 
@@ -23,7 +23,7 @@ or multiple dependencies that allow us to use some piece of functionality in our
 project. Using Spring Boot starters lets us ensure the versions of all the
 dependencies we are using play nice together, and do not contain any conflicts.
 ---
-## Using Thymeleaf
+## TODO: Serve Resources With Thymeleaf
 
 First, we will create a controller that returns a view.
 
@@ -76,7 +76,7 @@ We must do the following to use Thymeleaf:
   tag
 
 ---
-##Creating an endpoint to serve static assets
+## TODO: Create an endpoint to serve static assets
 
 Our eventual blog application will have two "realms". One will be on 
 `/` for the purpose of only serving static assets (HTML, CSS, JS).
@@ -89,8 +89,12 @@ For now, let's focus on creating an endpoint which will serve up the static asse
 
 1. Inside `src/main/java`, create a packaged titled `web`.
     - This package will be responsible for holding all of our controllers.
+
+
 2. Inside `web`, create a class named `ViewController`.
     - Annotate `ViewController` with `@Controller`. This will tell Spring to treat it as a controller class.
+
+
 3. Within `ViewController`, create a public method named `showView()`. It should return a `String`.
     - Annotate `showView()` with `@RequestMapping()`;
     - Within `@RequestMapping()`, we will add our static view routes
@@ -98,11 +102,9 @@ For now, let's focus on creating an endpoint which will serve up the static asse
     - Have `showView()` return the following:
     
         ```return "forward:/index.html";```
-      
-    -We will talk about what this means for your client-side!
    
-4. For now, you should be able to start your application and navigate to `http://localhost:8080/`
-    - You should see a basic landing page at this point with a nav bar.
+   
+4. When you complete the above, we have a nice bundle of starter JavaScript to help you visualize your client-side!
 
 
 ---

@@ -1,12 +1,12 @@
 # Data Access in Spring
 
-While there are many ways to interface with a database within Spring, 
-one of the fastest and most intuitive methods is to use Spring Data with JPA.
+### *Note: for the next few lessons, we will not run our application. This is to allow for a full set of instruction before seeing the end results.*
 
 ---
-
-***Note: for the next few lessons, we will not run our application. This is to allow for a full set of instruction before seeing the end results.***
 ## Repositories + JPA
+
+While there are many ways to interface with a database within Spring,
+one of the fastest and most intuitive methods is to use Spring Data with JPA.
 
 In this lesson we will start learning about the **J**ava **P**ersistence **A**PI, and how to
 work with **JPA** entities in the Spring framework.

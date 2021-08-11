@@ -1,6 +1,6 @@
 # Project Setup
 
-Throughout the course of this section we will be building a blogging
+Throughout the course of this module, we will be building a blogging
 application.
 
 Our application will eventually have the following features:
@@ -12,7 +12,7 @@ Our application will eventually have the following features:
 
 Building this application will allow you to learn how Spring handles basic CRUD
 operations, as well as user authentication. In addition, you can use your blog
-as a personal site to show off your Java chops!
+as a personal site to show off your Java and JavaScript chops!
 
 ---
 ## IntelliJ Setup

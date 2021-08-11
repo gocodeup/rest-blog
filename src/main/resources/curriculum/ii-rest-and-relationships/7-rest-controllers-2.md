@@ -33,7 +33,17 @@ From this point, Spring will attempt to convert the incoming request body to our
 Now, we are free to use the newly acquired parameter same as any other method!
 
 ---
-### TODO:  `createPost()` & `@PostMapping`
+## The following is a feature list to be implemented in your blog application
+
+### FEA-1: As a User, I can create posts.
+
+### FEA-2: As a User, I can edit posts.
+
+### FEA-3: As a User, I can delete posts.
+
+---
+
+### FEA-1 ->  `createPost()` & `@PostMapping`
 
 1. This method will be private, return void (Spring will handle the response), and accept a `Post` object. 
    - Name the `Post` parameter in a way which indicates it is to be created.
@@ -52,7 +62,7 @@ Now, we are free to use the newly acquired parameter same as any other method!
 5. **Start the server and navigate to `http://localhost:8080/swagger-ui.html`. Then test the POST route on `/api/posts`.**
 
 ---
-### TODO: `updatePost()` & `@PutMapping`
+### FEA-2 -> `updatePost()` & `@PutMapping`
 
 1. Set up this method much like `createPost()`, replacing `@PostMapping` with `@PutMapping({/{id}})`.
 
@@ -64,7 +74,7 @@ Now, we are free to use the newly acquired parameter same as any other method!
 3. **Start the server and navigate to `http://localhost:8080/swagger-ui.html`. Then test the UPDATE route on `/api/posts`.**
 
 ---
-### TODO:  `deletePost()` & `@DeleteMapping`
+### FEA-3 ->  `deletePost()` & `@DeleteMapping`
 
 If we remember from the Movies Backend, deleting a record is super easy!
    
@@ -92,7 +102,7 @@ Instead of getting the `Post` ID from the request body, we can grab it from the 
 
 Now, the time has *finally* come for us to venture back into our client-side!
 
-Your bare-bones JavaScript application could use some love right now...
+Your bare-bones JavaScript application could use some love right now as we finish implementing our feature list!
 
 Using your knowledge of Fetch API, jQuery, Bootstrap, and more, it's time to implement Create, Update, and Delete functionality on our Posts!
 
@@ -102,15 +112,9 @@ But be patient with yourself: ***it's been a while since we dove into JavaScript
 - Use **Vanilla JS** or **jQuery** to create elements and retrieve data from the DOM
 - Use **Bootstrap** once you are done do make a pleasing layout
 
+### TODO: Complete the implementations of FEA-1, FEA-2, FEA-3 on the client-side.
+
 ---
-### TODO: The following is a feature list to be implemented in your client:
-
-#### FEA-1: As a User, I can create posts.
-
-#### FEA-2: As a User, I can edit posts.
-
-#### FEA-3: As a User, I can delete posts.
-
 
 
 ##Next Up: [The User](8-the-user.md)

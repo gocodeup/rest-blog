@@ -50,5 +50,5 @@ Password Grant is not what we would typically use in the industry, *however* it 
 
 **In the next few lessons, we will set up the infrastructure for OAuth 2.0 in our application.**
 
-## Next Up: [Implementing OAuth 2.0](18-implementing-oauth.md)
+## Next Up: [Implementing OAuth 2.0](19-implementing-oauth.md)
 

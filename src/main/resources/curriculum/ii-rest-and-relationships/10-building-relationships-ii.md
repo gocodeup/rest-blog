@@ -4,6 +4,15 @@ Now that we've bound Users and Posts together as a ***one-to-many*** relationshi
 relationship within our application.
 
 ---
+## The following is a feature list to be implemented in your blog application
+
+### FEA-7: As a user, I can view categories assigned to a post
+
+### FEA-8: As a user, I can assign categories to a post
+
+### [OPTIONAL] FEA-9: As a user, I can search for posts by category.
+
+---
 
 ## Categories
 
@@ -15,7 +24,8 @@ This is indicating from under which categories a blog post can be found.
 
 Implementing this functionality is actually very simple!
 
-### The `Category`
+---
+### FEA-7, FEA-8 Joint Story: Create the `Category`
 
 We will create an object which will represent a single category.
 
@@ -33,7 +43,7 @@ Its job is to provide the names of which categories *exist*.
 
 ---
 
-### TODO: Posts and Categories as Many-to-Many
+### FEA-7, FEA-8 Joint Story 1: Create Many-to-Many Relationship with Posts and Categories
 
 It's time to bind our `Post` and `Category` objects together, but first we need to think about the relationship between
 the two.
@@ -54,7 +64,7 @@ Thinking about this and how we implemented the Users-Posts relationship, try to 
 
 ---
 
-### TODO: Create the `CategoriesController`
+### FEA-7, FEA-8 Joint Story 2: Create the `CategoriesController`
 
 Now that we have this relationship established, let's expose endpoints to provide the functionality to our client.
 
@@ -79,6 +89,16 @@ Now that we have this relationship established, let's expose endpoints to provid
     
 ---
 
-## Next Up: [Client Integration](11-client-integration.md)
+## Implement these stories on the frontend
+
+### FEA-7-Story-3: Show categories of blog posts on the client
+
+### FEA-8-Story-3: Enable assignment of categories on the client
+
+## *¡Feel free to style up your frontend now!*
+
+---
+
+## Next Up: [Data Persistence](../iii-data-persistence/12-data-persistence.md)
 
 

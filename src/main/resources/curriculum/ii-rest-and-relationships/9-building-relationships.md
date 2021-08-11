@@ -36,8 +36,22 @@ Now, we can expose new endpoints for getting all posts for a user or getting the
 
 However, that is not necessary at this point. You can simply include a list of posts when returning user(s) and/or include a user when returning posts.
 
-### Test your relationships! (oof)
+As with previous lessons, test these changes in **Swagger** and see if you can get the results you expect!
 
-As with previous lessons, test these changes in Swagger and see if you can get the results you expect!
+---
+
+## The following is a feature list to be implemented in your blog application
+
+### FEA-5: As a user, I can see the author of blog posts
+
+- FEA-5-Story-1: Implement server-side
+- FEA-5-Story-2: Implement client-side
+
+### FEA-6: As a user, I can see my authored blog posts
+
+- FEA-5-Story-1: Implement server-side
+- FEA-5-Story-2: Implement client-side
+
+---
 
 ##Next Up: [Building Relationships, Pt II](10-building-relationships-ii.md)

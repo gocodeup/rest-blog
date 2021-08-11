@@ -40,7 +40,13 @@ We need to think about ***necessary*** information on the user of our the applic
 For now, let's focus on the basics of our `User` by creating a model with a few key properties:
 
 ---
-### TODO: Implement the `User`
+
+## The following is a feature list to be implemented in your blog application:
+
+### FEA-4: As a user, I can register with the application
+
+---
+### FEA-4 Story: Implement the `User`
 1. Inside the `data` package, create a class named `User`
 
 
@@ -68,7 +74,7 @@ public class User {
 - All getters and setters
 
 ---
-### TODO: Implement the `UsersController`
+### FEA-4 Story: Implement the `UsersController`
 
 We can now set up a REST Controller for the purpose of running CRUD operations related to the `User`.
 
@@ -89,7 +95,7 @@ and waste your own time tracking down the issue.
 
 ---
 
-### TODO: Register the `User` Client-Side
+### FEA-4 Story: Register the `User` Client-Side
 
 `resources/static/js/views/Login.js`
 shows us how we can begin a view for creating users.

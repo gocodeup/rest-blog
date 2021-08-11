@@ -51,20 +51,19 @@ In order to authenticate a `User` with our server, the `User` must actually exis
 
 Now, it's time to ensure your user has access to the endpoints they need.
 
-**More importantly**, let's verify that unauthenticated users can't access secured endpoints as well as seeing that users without proper authorization can't perform *unauthorized* operations.
-
-
-- [x] Authenticated user can view all posts
-- [x] Authenticated user can create posts
-- [x] Authenticated user can edit their posts
-- [x] Authenticated user can delete their posts
-  
+**More importantly**, let's verify that unauthenticated users can't access secured endpoints as well as seeing that users without proper authorization can't perform *unauthorized* operations:
 
 - [x] Unauthenticated user cannot edit posts
 - [x] Unauthenticated user cannot delete posts
 
 
-- [x] Authenticated ADMIN user can perform any operation on any posts
+- [x] Authenticated user with USER role can **view** all posts
+- [x] Authenticated user with USER role can **create** posts
+- [x] Authenticated user with USER role can **edit their** posts
+- [x] Authenticated user with USER role can **delete their** posts
+
+
+- [x] Authenticated **ADMIN** user can perform any operation on any posts
 
 
 

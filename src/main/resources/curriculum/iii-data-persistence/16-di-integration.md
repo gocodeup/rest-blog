@@ -28,7 +28,9 @@ import com.example.restblog.data.PostRepository;
 
 public class PostsController {
 
-    // These two next steps are often called dependency injection, where we create a Repository instance and initialize it in the controller class constructor.
+    // These two next steps are often called dependency injection, 
+    // where we create a Repository instance and 
+    // initialize it in the controller class constructor.
     private final PostRepository postRepository;
 
     public PostsController(PostRepository postRepository) {
@@ -37,10 +39,15 @@ public class PostsController {
 
     @GetMapping
     public List<Post> getPosts() {
-        // Because of DI, we don't have to do this:
-        //PostRepositoryImpl repo = new PostRepositoryImpl()...
         
-        //Instead, we get this lovely snippet and can use postRepository over and again in this class.
+        // Because of DI, 
+        // we don't have to do this:
+       
+        // PostRepositoryImpl repo = new PostRepositoryImpl()
+        
+        // Instead, we get this lovely snippet 
+        // and can use postRepository over and 
+        // again in this class.
         return postRepository.findAll();
     }
 
@@ -101,4 +108,4 @@ As always, test ***each*** endpoint and ensure the results are what you expect -
 - [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection)
 - [Spring Beans and dependency injection](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-spring-beans-and-dependency-injection.html)
 
-## Next Up: [Intro To Security](../iv-security/17-intro-to-security.md)
+## Next Up: [Services](../iv-business-layer/17-services.md)

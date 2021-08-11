@@ -207,13 +207,18 @@ Notice we are not setting the ID of the `Post`?
 The `id` column is auto-incrementing, so MySQL will take care of this!
 
 ---
+## The following is a feature list to be implemented in your blog application
+### FEA-9: As a user, I can see previous posts with categories which have been published. 
 
-## TODO: Complete Data Access Layer
+If you haven't yet, complete the conversion of `User`, `Post`, and `Category` to be entities.
+    
+- Use annotations in order to do this
+    
 
-1. If you haven't yet, complete the conversion of `User`, `Post`, and `Category` to be entities.
-    - Use annotations in order to do this
-    - Make sure that all **Object Relationships** are in place (1:1, 1:Many, Many:Many)
-    - Create repositories for each object.
+- Make sure that all **Object Relationships** are in place (1:1, 1:Many, Many:Many)
+    
+
+- Create repositories for each object.
 
 ---
 ## Further Reading

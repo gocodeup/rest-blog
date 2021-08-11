@@ -4,6 +4,15 @@ This setup will involve a lot of follow-along!
 
 Be sure to pay **close attention** to details in this lesson. Naming, placement, and ordering are paramount!
 
+## The following is a feature list to be implemented in your application
+
+### FEA-11: As a validated user, I can create, edit and delete posts.
+
+### FEA-12: As an anonymous user, I can neither create, edit, nor delete posts.
+
+### FEA-13: As an ADMIN user, I have full access to create, edit, and delete any posts.
+
+---
 ## TODO: Create the Resource Owner
 
 ### 1. Let's drop a few dependencies into our `pom.xml`:
@@ -277,7 +286,7 @@ At this point, it's time for us to explore what this security buys us.
 
 As well, we are going to begin understanding the constraints it places on access to our application's endpoints.
 
-## Next Up: [Testing with OAuth 2.0](19-testing-oauth.md)
+## Next Up: [Testing with OAuth 2.0](20-testing-oauth.md)
 
 
 
