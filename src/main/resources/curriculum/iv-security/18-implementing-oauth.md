@@ -212,7 +212,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
 ## TODO: Create the Resource Server
 
-### 1. In `security`, create a class named `ResourceServerConfiguration`.
+### In `security`, create a class named `ResourceServerConfiguration`.
 
 - This class is responsible for the actual securing of individual endpoints defined in our controllers.
 - We can define
@@ -268,64 +268,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 }
 
 ```
-
-### 2. Lastly, also in `security`, create a class named `SimpleCorsFilter`.
-- We will use this class in our development environment in order to override default security configurations.
-    - More or less, this lets us more easily make `localhost` requests.
-    
-```JAVA
-
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-@Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class SimpleCorsFilter implements Filter {
-
-    //TODO: This class needs to be only used under a 'dev' profile.
-    //  -> Its purpose is to allow looser filters for doing dev work
-    public SimpleCorsFilter() {
-    }
-
-    @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletResponse response = (HttpServletResponse) res;
-        HttpServletRequest request = (HttpServletRequest) req;
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization, content-type");
-
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            chain.doFilter(req, res);
-        }
-    }
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-    }
-
-    @Override
-    public void destroy() {
-    }
-}
-```
-
----
-
-## Error Handling and Entry Points
-
-At this point, we will be transferring to you a series of classes to put into a new package named `errors`
-
-Please make sure `errors` is at the same level as `security`.
 
 ---
 

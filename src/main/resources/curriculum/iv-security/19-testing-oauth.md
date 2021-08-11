@@ -17,10 +17,56 @@ we will need to take a look at:
 
 ---
 
-### Of Note: From this point, we will be doing much of our testing 
+### Of Note: From this point, we will be doing much of our testing using the Client-Side App or Fetch API within the browser console.
 
-## Creating the Access and Refresh Tokens
+---
+## TODO: Create the Access and Refresh Tokens
 
 In order to authenticate a `User` with our server, the `User` must actually exist and be given a role.
+
+1. After starting your application, navigate to `/login` in the browser.
+
+
+2. Login with an existing user.
+
+
+3. Open `Inspect -> Application -> Storage - Local Storage -> http://localhost:8080 `
+
+
+4. If your auth request was successful, you will see two tokens:
+
+![tokens](../tokens.png)
+
+5. Copy the `access_token` value and navigate to [jwt.io](https://jwt.io/)
+    - Scroll down paste your token in the `Encoded` box:
+    
+![jwt.io decoder](../decode.png)
+
+6. Looking at the decoded JWT (JSON Web Token), what do you notice?
+    - Compare these values to what you see in `OAuthConfiguration`
+
+---
+
+## TODO: Test Your Endpoints
+
+Now, it's time to ensure your user has access to the endpoints they need.
+
+**More importantly**, let's verify that unauthenticated users can't access secured endpoints as well as seeing that users without proper authorization can't perform *unauthorized* operations.
+
+
+- [x] Authenticated user can view all posts
+- [x] Authenticated user can create posts
+- [x] Authenticated user can edit their posts
+- [x] Authenticated user can delete their posts
+  
+
+- [x] Unauthenticated user cannot edit posts
+- [x] Unauthenticated user cannot delete posts
+
+
+- [x] Authenticated ADMIN user can perform any operation on any posts
+
+
+
 
 
