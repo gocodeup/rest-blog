@@ -28,11 +28,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         // TODO: Flesh out remaining secured endpoints
         http
-                .cors()
-            .and()
-                .csrf()
-                .disable()
-            .formLogin()
+                .formLogin()
                 .disable()
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

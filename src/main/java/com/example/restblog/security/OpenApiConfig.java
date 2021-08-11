@@ -9,7 +9,7 @@
 //import org.springframework.context.annotation.Bean;
 //
 //public class OpenApiConfig {
-//
+//    TODO: Attempted to add Auth component to Swagger. Didn't have time to flesh out
 //    private static final String SECURITY_SCHEME_NAME = "Bearer oAuth Token";
 //
 //    /**

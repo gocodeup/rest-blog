@@ -18,17 +18,20 @@ And we have a fantastic way of implementing that security!
 There are many ways to secure applications.
 One of the airtight methods is to use the **OAuth 2.0** specification.
 
-In the future, you may find yourself using more complex mechanisms for implmenting OAuth, 
+In the future, you may find yourself using more complex mechanisms for implementing OAuth, 
 but here is a breakdown of the parts which make our security environment:
-
 
 ### 1. Resource Owner
 
 The actual user wanting access to protected endpoints. They must be an *existing* user in the system.
 
+The user passes their credentials (email or username / password) to the *authorization server* in order to be authenticated to make requests to the *resource server*.
+
 ### 2. Authentication Server 
 
-Issues the access and refresh *tokens* based on authentication/authorization of Resource Owner
+Issues access and refresh *tokens* based on authentication/authorization of Resource Owner.
+
+Those tokens will be used to validate requests to our *resource server*.
 
 ### 3. Resource Server
 

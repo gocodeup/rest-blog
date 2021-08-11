@@ -1,6 +1,8 @@
 # Implementing OAuth 2.0
 
-Pay close attention to details in this lesson. Naming, placement, and ordering are paramount!
+This setup will involve a lot of follow-along!
+
+Be sure to pay **close attention** to details in this lesson. Naming, placement, and ordering are paramount!
 
 ## TODO: Create the Resource Owner
 
@@ -24,6 +26,8 @@ Pay close attention to details in this lesson. Naming, placement, and ordering a
 ### 3. Inside `security`, create a class named `UserService`.
 
 - This class begins registering our Resource Owner with Spring Security
+  
+
 - As well, it pulls the `Role` from our `User` in order to allow Spring Security to do Authorizations.
 
 ```JAVA
@@ -62,8 +66,14 @@ public class UserService implements UserDetailsService {
 ### 1. In `security`, create a class named `ServerSecurityConfig`.
 
 - This class begins orchestrating a more full picture of the `User` in relation to our application
+  
+
 - It authenticates the source of the `User` (`UserService` / `UserRepository`)
+  
+
 - Also, it provides an injection point for our password encryption tool (`BCryptPasswordEncoder`)
+  
+
 - Lastly, it tells Spring Security to enable our ability to set Auth on individual methods within the application.
 
 ```JAVA
@@ -236,28 +246,24 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         resources.resourceId("api");
     }
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http
-                .cors()
-                .and()
-                .csrf()
-                .disable()
-                .formLogin()
-                .disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/**", "/api/posts", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/api/**").authenticated()
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
-    }
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+    http
+            .formLogin()
+            .disable()
+          .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+          .and()
+            .authorizeRequests()
+            .antMatchers("/**", "/api/posts", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+          .and()
+            .authorizeRequests()
+            .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
+            .antMatchers("/api/**").authenticated()
+            .anyRequest().authenticated()
+          .and()
+            .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
+  }
 
 }
 
