@@ -10,4 +10,5 @@ public class ViewController {
     public String showView(){
         return "forward:/index.html";
     }
+
 }

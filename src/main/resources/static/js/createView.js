@@ -21,9 +21,9 @@ export default function createView(URI) {
     render(null, router('/loading'));
 
     let request = {
-
+        headers: getAuthBearerTokenHeader()
     }
-    fetchData(route.state, getAuthBearerTokenHeader()).then((props) => {
+    fetchData(route.state, request).then((props) => {
         render(props, route);
     });
 }

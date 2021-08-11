@@ -102,7 +102,7 @@ But be patient with yourself: ***it's been a while since we dove into JavaScript
 - Use **Vanilla JS** or **jQuery** to create elements and retrieve data from the DOM
 - Use **Bootstrap** once you are done do make a pleasing layout
 
-
+---
 ### TODO: The following is a feature list to be implemented in your client:
 
 #### FEA-1: As a User, I can create posts.

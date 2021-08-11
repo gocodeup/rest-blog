@@ -6,13 +6,14 @@ import createView from "./createView.js";
  * On a successful response, sets the tokens into storage and redirects to the root
  */
 export default function addLoginEvent() {
+    console.log("entered addLoginEvent")
     document.querySelector("#login-btn").addEventListener("click", function () {
         let obj = {
             username: document.querySelector("#username").value,
             password: document.querySelector("#password").value,
             grant_type: 'password'
         }
-
+        console.log("got to login event")
         // TODO: these are the only request params /oauth/token accepts in Spring Security
         // TODO: need to possibly implement a random bit handshake w/ SHA256 on the password before sending
         //      -> Alternatively, encrypt the entire request body
@@ -44,9 +45,9 @@ export default function addLoginEvent() {
 export function getAuthBearerTokenHeader() {
     const token = localStorage.getItem("access_token");
     return token
-        ? {headers: {
+        ? {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + `${token}`}}
+            'Authorization': 'Bearer ' + `${token}`}
         : false;
 }
 

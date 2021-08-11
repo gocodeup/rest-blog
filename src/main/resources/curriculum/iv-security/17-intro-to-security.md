@@ -10,23 +10,42 @@ There are two parts to securing an application:
 
 ####Authentication and Authorization
 
+And we have a fantastic way of implementing that security!
+
 ---
 ## OAuth 2.0
 
-There are many ways to secure applications, 
-and one of the most common and airtight is the use of the OAuth 2.0 specification.
+There are many ways to secure applications.
+One of the airtight methods is to use the **OAuth 2.0** specification.
 
 In the future, you may find yourself using more complex mechanisms for implmenting OAuth, 
-but here is a breakdown of the parts which make our security environment
+but here is a breakdown of the parts which make our security environment:
 
-### 1. Authentication Server 
-Issues the authentication *token*
-### 2. Resource Owner
-The principle by which we discover how a purported user relates to our system
+
+### 1. Resource Owner
+
+The actual user wanting access to protected endpoints. They must be an *existing* user in the system.
+
+### 2. Authentication Server 
+
+Issues the access and refresh *tokens* based on authentication/authorization of Resource Owner
+
 ### 3. Resource Server
-The realm which serves up our actual content on protected endpoints
 
-**In the next few lessons, we will work to set up a security infrastructure for our application.**
+The realm which serves up our actual content on protected endpoints (`/api`, in our case).
+
+It uses the ***token*** found in the request header to verify the resource request.
+
+
+###From a registered user's perspective, here's what the flow would look like:
+
+![OAuthPasswordGrant](../auth.png)
+
+This particular flow is called **Password Grant**. 
+
+Password Grant is not what we would typically use in the industry, *however* it is a great first introduction into implementing OAuth 2.0
+
+**In the next few lessons, we will set up the infrastructure for OAuth 2.0 in our application.**
 
 ## Next Up: [Implementing OAuth 2.0](18-implementing-oauth.md)
 

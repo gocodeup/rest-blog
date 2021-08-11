@@ -11,4 +11,7 @@ export default function render(props, route) {
     history.pushState(props, title, route.uri);
     document.title = title;
     app.innerHTML = `${Navbar(null)} ${route.returnView(props)}`;
+    if (route.viewEvent){
+        route.viewEvent();
+    }
 }

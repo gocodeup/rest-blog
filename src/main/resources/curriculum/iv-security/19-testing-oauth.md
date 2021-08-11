@@ -17,6 +17,8 @@ we will need to take a look at:
 
 ---
 
+### Of Note: From this point, we will be doing much of our testing 
+
 ## Creating the Access and Refresh Tokens
 
 In order to authenticate a `User` with our server, the `User` must actually exist and be given a role.
