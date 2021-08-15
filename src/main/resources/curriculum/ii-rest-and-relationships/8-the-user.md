@@ -59,13 +59,14 @@ For now, let's focus on the basics of our `User` by creating a model with a few 
 - Date createdAt
 - Role role
 
-For our `Role`, we will create an `enum` as the *very* first piece inside the `User` class like so:
+For our `Role`, we will create an `enum` inside the `User` class like so:
 
 ```JAVA
 public class User {
 
+    // ...Your fields above here
+   
     public enum Role {USER, ADMIN};
-    ...
 ```
 
 3. Create our standard POJO items:
