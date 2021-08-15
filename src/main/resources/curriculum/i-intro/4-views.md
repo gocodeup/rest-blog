@@ -87,7 +87,7 @@ For example, if the user wants to see all posts, they could hit `/api/posts` on 
 
 For now, let's focus on creating an endpoint which will serve up the static assets.
 
-1. Inside `src/main/java`, create a packaged titled `web`.
+1. Inside `src/main/java/com.codeup.blogapp`, create a package titled `web`.
     - This package will be responsible for holding all of our controllers.
 
 

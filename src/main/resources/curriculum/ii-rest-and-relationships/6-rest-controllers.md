@@ -94,7 +94,7 @@ From this point, any valid `GET` request sent to `/api/posts` will be routed to 
 ### `@PathVariable`
 We can also annotate additional path extensions for controller methods.
 
-For example, adding `@DeleteMapping({id})` on
+For example, adding `@GetMapping("{id}")` on
 `PostsController.getPost(...)` would allow a client to make a
 `GET` request to `/api/posts/12`, with `12` being the ID of the post to retrieve.
 
@@ -102,10 +102,10 @@ Then, it is up to us to add a `@PathVariable` in the method signature with a par
 suggested to name the *method* parameter the same as your incoming path variable in order to save confusion.
 
 ```JAVA
-@GetMapping({id})
+@GetMapping("{id}")
 public void getPost(@PathVariable Long id){
         ...
-}
+        }
 ```
 
 
