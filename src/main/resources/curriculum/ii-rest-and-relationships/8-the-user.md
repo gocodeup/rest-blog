@@ -17,6 +17,7 @@ By creating a `Post` object and a controller to help perform CRUD, we nailed dow
 Now, we need to fill out #2: **Who interacts with the application and what can they ask it to do?**
 
 ---
+
 ## How to define the `User`
 
 We need to think about ***necessary*** information on the user of our the application.
@@ -46,7 +47,9 @@ For now, let's focus on the basics of our `User` by creating a model with a few 
 ### FEA-4: As a user, I can register with the application
 
 ---
+
 ### FEA-4 Story: Implement the `User`
+
 1. Inside the `data` package, create a class named `User`
 
 
@@ -65,8 +68,10 @@ For our `Role`, we will create an `enum` inside the `User` class like so:
 public class User {
 
     // ...Your fields above here
-   
-    public enum Role {USER, ADMIN};
+
+    public enum Role {USER, ADMIN}
+
+    ;
 ```
 
 3. Create our standard POJO items:
@@ -75,6 +80,7 @@ public class User {
 - All getters and setters
 
 ---
+
 ### FEA-4 Story: Implement the `UsersController`
 
 We can now set up a REST Controller for the purpose of running CRUD operations related to the `User`.
@@ -86,10 +92,10 @@ We can now set up a REST Controller for the purpose of running CRUD operations r
 
 2. While filling out the class, follow the same pattern as found in [Rest Controllers](6-rest-controllers.md)
    and [Rest Controllers, Pt II](7-rest-controllers.md).
-   - **Make sure the class' `@RequestMapping` value is set to `/api/users`**
-   - Similarly, ***don't copypasta***. You will more than likely forget to replace one of those `Post` references
-   with `User`
-and waste your own time tracking down the issue.
+    - **Make sure the class' `@RequestMapping` value is set to `/api/users`**
+    - Similarly, ***don't copypasta***. You will more than likely forget to replace one of those `Post` references
+      with `User`
+      and waste your own time tracking down the issue.
 
 
 3. Did we mention you should test each method in Swagger as you are writing them?
@@ -102,73 +108,89 @@ and waste your own time tracking down the issue.
 shows us how we can begin a view for creating users.
 
 1. In `resources/static/js/views/`, create `Register.js`
-   
+
 
 2. Following what you see in `Login.js`, create a form allowing a new user to register with our application.
-   - They need to be able to enter their `username`, `email`, and `password`.
-   - A button will be needed for allowing the user to submit their inputs.
+    - They need to be able to enter their `username`, `email`, and `password`.
+    - A button will be needed for allowing the user to submit their inputs.
 
 
 3. **Ensure the password input is hidden.** (there is an HTML input attribute for this!)
 
 
-4. Open `js/router.js`. In here, you will find a template for how to add a property to allow for the registration view to be rendered.
-   
+4. Open `js/router.js`. In here, you will find a template for how to add a property to allow for the registration view
+   to be rendered.
+
 ```JAVASCRIPT
-'/login': {
-   returnView: Login,
-   state: {},
-   uri: '/login',
-   title: "Login",
-   viewEvent: LoginEvent
+'/login'
+:
+{
+    returnView: Login,
+        state
+:
+    {
+    }
+,
+    uri: '/login',
+        title
+:
+    "Login",
+        viewEvent
+:
+    LoginEvent
 }
 ```
 
 - Make an object with the same properties and replace the `login` references with `register`.
 
 
-5. Notice `viewEvent: LoginEvent` above? You will need your own function to serve as a callback for `/register`. 
-   - When the user submits the form, your JavaScript listens for that button click. 
-   - You will need to add an event listener to that button when it is rendered.
-   - After the click, grab the input values from the DOM, bundle them together in an object which mimics the backend `User` properties.
-   - Do not worry with the `Role`, `Posts`, or `Id`. This is only for registration!
-   
+5. Notice `viewEvent: LoginEvent` above? You will need your own function to serve as a callback for `/register`.
+    - When the user submits the form, your JavaScript listens for that button click.
+    - You will need to add an event listener to that button when it is rendered.
+    - After the click, grab the input values from the DOM, bundle them together in an object which mimics the
+      backend `User` properties.
+    - Do not worry with the `Role`, `Posts`, or `Id`. This is only for registration!
 
 Still in your `RegisterEvent` function, add this bit to the bottom:
+
 ```JAVASCRIPT
 let request = {
-   method: "POST",
-   body: **YOUR USER OBJECT**
+    method: "POST",
+    header: {"Content-Type": "application/json"},
+    body: **YOUR USER OBJECT**
 };
 
-fetchData(
-   {
-       route: `/api/users`
-   },
-   request).then((data) => {
-   setTokens(data);
-   createView("/");
-});
+fetch("http://localhost:8080/api/users", request)
+    .then((response) => {
+        console.log(response.status)
+        createView("/");
+    });
 ```
 
 Now, add `RegisterEvent()` as the `viewEvent` property for `/register` in `route.js`:
 
 ```JAVASCRIPT
-'/register': {
-   returnView: Register,
-   state: {},
-   uri: '/register',
-   title: "Register",
-   viewEvent: RegisterEvent
+const routes = {
+    // ...additional routes
+   
+    '/register': {
+        returnView: Register,
+        state: {},
+        uri: '/register',
+        title: "Register",
+        viewEvent : RegisterEvent
+    }
+    
+    // additional routes...
 }
 ```
 
+Once you plug this in, you now need to add `/register` to the list of paths inside your `ViewController`. From that point you are ready to begin testing the creation of a `User`!
 
-Once you plug this in, now attempt to create a user from the client-side!
-
-Check the database to see if your `User` object is in place - take note of the `id`!
+Check the `UsersController` to see if your new User is printed out on your `POST` method.
 
 ---
+
 ## Additional Functionality for the `UsersController`
 
 Looking forward, we need more than the ability to perform basic CRUD for our `User`. Functionality includes:
@@ -188,21 +210,21 @@ This informs us we will need add 4 new methods in `UsersController` and expose r
 2. `findById()` listening on `{id}`
     - returns a `User`
     - takes in `@PathVariable Long id` as parameter
-   
+
 
 3. `findByUsername()` listening on `/findByUsername`
     - returns a `User`
     - takes in `@RequestParam String username` as parameter
-   
+
 
 4. `findByEmail()` listening on `/findByEmail`
     - returns a `User`
     - takes in `@RequestParam String email` as parameter
-   
+
 
 5. `updatePassword()` listening on `{id}/updatePassword`
     - returns void
-    - takes in 
+    - takes in
    ```JAVA
       @PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 3) @RequestParam String newPassword
    ```
@@ -211,7 +233,27 @@ This informs us we will need add 4 new methods in `UsersController` and expose r
         - check the old password against the new
         - ensure the new password meets our criteria.
 
+---
 
+## FEA-OPT-1: As a user, I can view information about myself.
+
+If you have implemented a `findById`, `findByUsername`, or `findByEmail` method in the `UserController`, why not take it up a notch?
+
+1. Inside `views`, create a new `User.js` file. Use this file to create a view for allowing the `User` to see/edit information about themselves.
+   - In your capstone project, this will be essential! So it's highly advisable that you attempt this view!
+   
+
+2. For now, let's only be concerned with letting the user see their information and update their password.
+   - Here is where your `findBy[whatever field]` controller method comes in handy
+   - For editing the password, you will need to implement `updatePassword` (as seen in #5 of the previous section).
+   
+
+3. Follow the same pattern as in the past:
+   - Make the view
+   - Make the event(s)
+   - Add a new property to `router.js`
+   - Test!
+   
 ---
 
 ## Next Up: [Building Relationships](9-building-relationships.md)
