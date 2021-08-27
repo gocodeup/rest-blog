@@ -21,8 +21,8 @@ or login into your mysql server using the terminal client and run the following 
 ```sql
 CREATE DATABASE IF NOT EXISTS blog_db;
 
-CREATE USER blog_user@localhost IDENTIFIED BY 'p@$$w0rd';
-GRANT ALL ON blog_db.* TO blog_user@localhost;
+CREATE USER 'blog_user@localhost' IDENTIFIED BY 'p@$$w0rd';
+GRANT ALL ON blog_db.* TO 'blog_user@localhost';
 ```
 
 Why aren't we setting up a schema yet? 

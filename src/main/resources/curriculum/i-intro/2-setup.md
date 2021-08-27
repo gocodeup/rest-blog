@@ -3,13 +3,6 @@
 Throughout the course of this module, we will be building a blogging
 application.
 
-Our application will eventually have the following features:
-
-- Any user can view the blog posts.
-- Users can create an account.
-- Logged in users can create posts.
-- Logged in users can edit and delete their own posts.
-
 Building this application will allow you to learn how Spring handles basic CRUD
 operations, as well as user authentication. In addition, you can use your blog
 as a personal site to show off your Java and JavaScript chops!
@@ -67,5 +60,5 @@ be using to bootstrap our application.
 
 1. Let's code!
 
-##Next Up: [Controllers](3-controllers.md)
+##Next Up: [Blog App Features](2a-blog-features.md)
 

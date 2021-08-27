@@ -42,18 +42,18 @@ For now, let's focus on the basics of our `User` by creating a model with a few 
 
 ---
 
-## The following is a feature list to be implemented in your blog application:
+### The following is a feature list to be implemented in your blog application:
 
-### FEA-4: As a user, I can register with the application
+## FEA-5: As a user, I can register with the application
 
 ---
 
-### FEA-4 Story: Implement the `User`
+### FEA-5-A: Implement the `User` class
 
-1. Inside the `data` package, create a class named `User`
+#### 1. Inside the `data` package, create a class named `User`
 
 
-2. Give the `User` the following private fields:
+#### 2. Give the `User` the following private fields:
 
 - long id
 - String username
@@ -74,89 +74,83 @@ public class User {
     ;
 ```
 
-3. Create our standard POJO items:
+#### 3. Create our standard POJO items:
 
 - Empty and full constructors
 - All getters and setters
 
 ---
 
-### FEA-4 Story: Implement the `UsersController`
+### FEA-5-B: Implement the `UsersController`
 
 We can now set up a REST Controller for the purpose of running CRUD operations related to the `User`.
 
 ***After completing each method, be sure to test in Swagger***
 
-1. In the package `web`, create a class called `UsersController`.
+#### 1. In the package `web`, create a class called `UsersController`.
 
 
-2. While filling out the class, follow the same pattern as found in [Rest Controllers](6-rest-controllers.md)
-   and [Rest Controllers, Pt II](7-rest-controllers.md).
-    - **Make sure the class' `@RequestMapping` value is set to `/api/users`**
-    - Similarly, ***don't copypasta***. You will more than likely forget to replace one of those `Post` references
+#### 2. While filling out the class, follow the same pattern as found in [Rest Controllers](6-rest-controllers.md) and [Rest Controllers, Pt II](7-rest-controllers.md).
+   
+- You will need methods for `getAll`, `getById`, `create`, `update`, and `deleteById` with their respective annotations.
+
+
+- **Make sure the class' `@RequestMapping` value is set to `/api/users`**
+    
+
+- Similarly, ***don't copypasta***. You will more than likely forget to replace one of those `Post` references
       with `User`
       and waste your own time tracking down the issue.
 
 
-3. Did we mention you should test each method in Swagger as you are writing them?
+#### 3. Did we mention you should test each method in Swagger as you are writing them?
 
 ---
 
-### FEA-4 Story: Register the `User` Client-Side
+### FEA-5-C: Register the `User` Client-Side
 
 `resources/static/js/views/Login.js`
 shows us how we can begin a view for creating users.
 
-1. In `resources/static/js/views/`, create `Register.js`
+#### 1. In `resources/static/js/views/`, create `Register.js`
 
 
-2. Following what you see in `Login.js`, create a form allowing a new user to register with our application.
+#### 2. Following what you see in `Login.js`, create a form allowing a new user to register with our application.
     - They need to be able to enter their `username`, `email`, and `password`.
     - A button will be needed for allowing the user to submit their inputs.
 
 
-3. **Ensure the password input is hidden.** (there is an HTML input attribute for this!)
+#### 3. **Ensure the password input is hidden.** (there is an HTML input attribute for this!)
 
 
-4. Open `js/router.js`. In here, you will find a template for how to add a property to allow for the registration view
-   to be rendered.
+#### 4. Open `js/router.js`. In here, you will find a template for how to add a property to allow for the registration view to be rendered.
 
 ```JAVASCRIPT
-'/login'
-:
-{
-    returnView: Login,
-        state
-:
-    {
-    }
-,
-    uri: '/login',
-        title
-:
-    "Login",
-        viewEvent
-:
-    LoginEvent
+'/login': {
+   returnView: Login,
+   state: {},
+   uri: '/login',
+   title: "Login",
+   viewEvent: LoginEvent
 }
 ```
 
 - Make an object with the same properties and replace the `login` references with `register`.
 
 
-5. Notice `viewEvent: LoginEvent` above? You will need your own function to serve as a callback for `/register`.
-    - When the user submits the form, your JavaScript listens for that button click.
-    - You will need to add an event listener to that button when it is rendered.
-    - After the click, grab the input values from the DOM, bundle them together in an object which mimics the
-      backend `User` properties.
-    - Do not worry with the `Role`, `Posts`, or `Id`. This is only for registration!
+#### 5. Notice `viewEvent: LoginEvent` above? You will need your own function to serve as a callback for `/register`.
+ - When the user submits the form, your JavaScript listens for that button click.
+ - You will need to add an event listener to that button when it is rendered.
+ - After the click, grab the input values from the DOM, bundle them together in an object which mimics the
+   backend `User` properties.
+ - Do not worry with the `Role`, `Posts`, or `Id`. This is only for registration!
 
 Still in your `RegisterEvent` function, add this bit to the bottom:
 
 ```JAVASCRIPT
 let request = {
     method: "POST",
-    header: {"Content-Type": "application/json"},
+    headers: {"Content-Type": "application/json"},
     body: **YOUR USER OBJECT**
 };
 
@@ -191,76 +185,8 @@ Check the `UsersController` to see if your new User is printed out on your `POST
 
 ---
 
-## Additional Functionality for the `UsersController`
 
-Looking forward, we need more than the ability to perform basic CRUD for our `User`. Functionality includes:
+*Looking forward, we need more than the ability to perform basic CRUD for our `User`.*
 
-- Search by the user's
-    - ID
-    - Username
-    - Email
-
-- Change the user's password (super important!)
-
-This informs us we will need add 4 new methods in `UsersController` and expose related endpoints to the client:
-
-1. ***As you complete each method, test in Swagger***
-
-
-2. `findById()` listening on `{id}`
-    - returns a `User`
-    - takes in `@PathVariable Long id` as parameter
-
-
-3. `findByUsername()` listening on `/findByUsername`
-    - returns a `User`
-    - takes in `@RequestParam String username` as parameter
-
-
-4. `findByEmail()` listening on `/findByEmail`
-    - returns a `User`
-    - takes in `@RequestParam String email` as parameter
-
-
-5. `updatePassword()` listening on `{id}/updatePassword`
-    - returns void
-    - takes in
-   ```JAVA
-      @PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 3) @RequestParam String newPassword
-   ```
-    - with these parameters, we can:
-        - obtain the `User` record
-        - check the old password against the new
-        - ensure the new password meets our criteria.
-
----
-
-## FEA-OPT-1: As a user, I can view information about myself.
-
-If you have implemented a `findById`, `findByUsername`, or `findByEmail` method in the `UserController`, why not take it up a notch?
-
-1. Inside `views`, create a new `User.js` file. Use this file to create a view for allowing the `User` to see/edit information about themselves.
-   - In your capstone project, this will be essential! So it's highly advisable that you attempt this view!
-   
-
-2. For now, let's only be concerned with letting the user see their information and update their password.
-   - Here is where your `findBy[whatever field]` controller method comes in handy
-   - For editing the password, you will need to implement `updatePassword` (as seen in #5 of the previous section).
-   
-
-3. Follow the same pattern as in the past:
-   - Make the view
-   - Make the event(s)
-   - Add a new property to `router.js`
-   - Test!
-   
----
-
-## Next Up: [Building Relationships](9-building-relationships.md)
-
-
-
-
-
-
+## Next Up: [The User, pt II](8a-the-user-pt-2.md)
 

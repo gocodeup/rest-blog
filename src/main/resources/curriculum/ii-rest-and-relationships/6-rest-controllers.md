@@ -4,43 +4,46 @@
 
 ### To accomplish this, we are going to start with a *different* type of Spring controller: 
 
-### the `@RestController`.
+### `@RestController`
 
-When we place this annotation above a class declaration, it registers the class with Spring's Dependency Injector and is
+When we place this annotation above a class declaration, it registers the class with Spring's Dependency Injector (*more on that later*) and is
 handled in particular ways.
 
 Among those ways is it eliminates the need to annotate every controller method with `@ResponseBody`. Less boilerplate ==
 more fun!
+
+Most importantly, `@RestController` allows us to signify that a controller exists for the **purpose** of sending/receiving data. 
+
 ---
 
-## TODO: Create a REST Controller
+### This lesson will help us complete the below feature and associated tasks:
 
-1. Add the following dependency to your `pom.xml`:
+## FEA-1: As a user, I can view any posts.
+### FEA-1-A: Create a REST Controller to allow a client to make requests/responses related to Blog Posts.
+
+---
+#### 1. Add the following dependency to your `pom.xml`:
 
 ```XML
-
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
-
 ```
-
-2. Now, let's go create a `Post` class.
+---
+#### 2. Now, let's go create a `Post` class.
     - On the same level as the `web` package, create a new package named `data`
     - Inside `data`, create a class named `Post`
     - Give `Post` the below fields, along with empty constructor, full constructor, and all getters/setters.
 
 ```JAVA
-
 private Long id;
 private String title;
 private String content;
-
 ```
-
-3. In the package `web`, create a class called `PostsController`.
-    - Annotate that class with `@RestController`
+---
+#### 3. In the package `web`, create a class called `PostsController`.
+ - Annotate that class with `@RestController`
 
 ### `@RequestMapping`
 
@@ -59,17 +62,21 @@ public class PostsController {
 }
 ```
 
-With Spring, we do not need to convert objects to and from JSON with another dependency. ***Spring will handle
+From `api/posts`, we can further define what requests go to which methods.
+
+ie: `GET` requests on `api/posts` go to the method annotated with `@GetMapping`.
+
+Or, `DELETE` requests on `api/posts/{id}` go to `@DeleteMapping("{id}")`.
+
+Also, with *Spring*, we do not need to convert objects to and from JSON with another dependency. ***Spring will handle
 serializing/deserializing for us!***
-
-
 ---
 
 ## CRUD Mapping By Method
 
 With Spring, we can be specific about which controller methods listen on what route by use of annotations.
 
-### `@GetMapping`
+### `@GetMapping` - (`GET`, aka: the Read operation)
 
 This handy annotation is what is called a *composed annotation*. Meaning, it is an amalgamation of the actions of one or
 more annotations. Per the Spring Docs:
@@ -83,7 +90,7 @@ To use it, simply place this annotation over your desired REST controller method
 
 ```JAVA
 @GetMapping
-private List<Post> getPosts() {
+private List<Post> getAll() {
         ...
 }
 ```
@@ -103,7 +110,7 @@ suggested to name the *method* parameter the same as your incoming path variable
 
 ```JAVA
 @GetMapping("{id}")
-public void getPost(@PathVariable Long id){
+public void getById(@PathVariable Long id){
         ...
         }
 ```
@@ -111,8 +118,8 @@ public void getPost(@PathVariable Long id){
 
 ---
 
-## TODO:
-In `PostsController`, create a public method called `getPosts()`
+## TODO: `getAll()`
+In `PostsController`, create a `public` method called `getAll()`
 
 - This method will return a list of `Post` objects
 
@@ -152,11 +159,27 @@ You can test any endpoint and even get sample requests/responses to help you alo
 
 For more information on how to effectively use Swagger UI, [start here](https://swagger.io/docs/specification/about/)
 
-### *Speaking of Testing*
 
-Why not navigate to `http://localhost:8080/posts`?
+---
 
-Do you see your posts on the client side?
+## TODO: `getById()`
+
+Using examples from above, create another `public` method in `PostsController` named `getById()`
+
+- This method will return a single `Post` object
+  
+
+- It will accept `GET` requests on `api/posts/{id}`
+
+
+- `getById()` has one parameter mapped by `@PathVariable` to the route's `{id}`.
+    - The parameter is of type `Long` and is named `id`.
+
+
+- Create and return a new `Post` object with all fields populated. 
+
+
+- Test your endpoint in Swagger!
 
 ---
 

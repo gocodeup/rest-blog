@@ -133,12 +133,19 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
 }
 ```
-
+---
 ### 2. In `security` Create a class named `OAuthConfiguration`.
 
-- This class is responsible for defining the `token` we will pass to our client.
-    - The token will be sent from the client in each request, thereby letting Spring Security validate the identity and
-      authorizations of the `User`.
+Here, we bind together our 
+  - Resource Owner -> `User`/`UserDetailsService`, 
+  - `AuthenticationManager` -> provided through delegation via `ServerSecurityConfig`, 
+  - `PasswordEncoder` -> Defined in `ServerSecurityConfig` as a Bean (`@Bean`)
+    
+We bring together these resources in order to help create the definition of our token, as well as the mechanisms to be used for: 
+- building the token
+- converting the token to/from a JWT to a Java object
+- inform Spring Security of how to compare claims in a token to our registered `UserDetailsService` implementation (`UserService`).
+
 
 ```JAVA
 
@@ -217,6 +224,30 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 }
 ```
 
+In this class, we see the following fields are for the purpose of defining the content and claims within our token:
+
+```JAVA
+    @Value("${jwt.clientId:rest-blog-client}")
+    private String clientId;
+
+    @Value("${jwt.client-secret:secret}")
+    private String clientSecret;
+
+    @Value("${jwt.signing-key:123}")
+    private String jwtSigningKey;
+
+    @Value("${jwt.accessTokenValidititySeconds:43200}") // 12 hours
+    private int accessTokenValiditySeconds;
+
+    @Value("${jwt.authorizedGrantTypes:password,authorization_code,refresh_token}")
+    private String[] authorizedGrantTypes;
+
+    @Value("${jwt.refreshTokenValiditySeconds:2592000}") // 30 days
+    private int refreshTokenValiditySeconds;
+```
+
+Later on, we will change the `jwtSigningKey` to be something a *little* more secure than `123`. For now, as we are just beginning our learning process, let's move on.
+
 ---
 
 ## TODO: Create the Resource Server
@@ -257,26 +288,95 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    http
-            .formLogin()
-            .disable()
+      http
+          .formLogin()
+              .disable()
           .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
           .and()
-            .authorizeRequests()
-            .antMatchers("/**", "/api/posts", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+              .authorizeRequests()
+              .antMatchers("/api/users")
+                .hasAnyAuthority("ADMIN", "USER")
+              .antMatchers("/api/posts")
+                .hasAnyAuthority("ADMIN", "USER")
+              .antMatchers("/swagger-ui/**", "/v3/api-docs/**")
+                .permitAll()
+              .antMatchers("/api/users/create")
+                .permitAll()
+              .antMatchers("/**")
+                .permitAll()
+              .anyRequest().authenticated()
           .and()
-            .authorizeRequests()
-            .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
-            .antMatchers("/api/**").authenticated()
-            .anyRequest().authenticated()
-          .and()
-            .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
+              .exceptionHandling()
+                .authenticationEntryPoint(customAuthenticationEntryPoint)
+                .accessDeniedHandler(new CustomAccessDeniedHandler());
   }
-
 }
 
 ```
+
+### `configure(ResourceServerSecurityConfigurer resources)`
+
+This method allows us to simply define the overall context of our resource. Often you may hear this referred to as a `realm`, `resource`, or `audience`.
+
+Basically, we want to let Spring Security know that `/api` is the beginning of our security context and concern.
+
+---
+### `configure(HttpSecurity http)` 
+
+This is where define top-level restrictions to protected resources, as well as declare what endpoints are allowed by everyone (even anonymous users).
+
+### Restricting Access:
+
+```JAVA
+.antMatchers("/api/users")
+    .hasAnyAuthority("ADMIN", "USER")
+.antMatchers("/api/posts/**")
+    .hasAnyAuthority("ADMIN", "USER")
+```
+
+We are declaring that anyone making requests to `/api/users` must have the Role of `ADMIN` or `USER`.
+
+We do the same for `api/posts`, but use a subsequent method chain for visual purposes.
+
+### Permitting Access
+
+```JAVA
+  .antMatchers("/swagger-ui/**", "/v3/api-docs/**")
+    .permitAll()
+  .antMatchers("/api/users/create")
+    .permitAll()
+  .antMatchers("/**")
+    .permitAll()
+```
+
+In this snippet (from above, as well), we declare that our Open API endpoints (Swagger), are allowed access by any anonymous user. This is for continuity of our development process in regards to testing.
+
+
+Importantly, the next `antMatcher` shows that we are allowing anonymous access to `api/users/create`.
+
+Think about it: if a user hasn't registered with our system, how could we begin to authenticate them through a Password Grant auth flow? So, in this case, we allow a request through to this endpoint.
+
+Lastly, the pattern `/**` is indicating that any path after an initial `/` is permitted.
+
+Now, while this may seem counter-intuitive to our entire idea of locking down endpoints, the ***order*** of our pattern matching ensures that the endpoints `api/users` and `api/posts` are secured *then* anything remaining is allowed.
+
+---
+### For your consideration
+
+Will this be exactly the configuration per-endpoint you use? Probably not! This is a very draconian approach in that we are totally locking down our `api/**` endpoints aside from `api/users/create`.
+
+Think of our anonymous user: should they be able to see all posts? See information on the User who posted?
+
+We may need a way to be specific on the access provided to endpoints under each umbrella (`api/users`, `api/posts`, etc).
+
+This could be accomplished by appending to our paths in each controller method but that could get a bit... overwhelming:
+
+```
+omg/make/it/stop/how/will/anyone/ever/remember/this/path
+```
+
+Instead, we will later learn how to use **more** annotations with very familiar boolean expressions to apply specific access requirements to individual methods without changing anything about the path or method behavior.
 
 ---
 

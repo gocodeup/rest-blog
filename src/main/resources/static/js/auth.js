@@ -40,7 +40,7 @@ export default function addLoginEvent() {
 /**
  * Gets the Authorization header needed for making requests to protected endpoints
  * This function should be used only after the user is logged in
- * @returns {boolean|{headers: {Authorization: string}}}
+ * @returns {{Authorization: string, "Content-Type": string}|{"Content-Type": string}}
  */
 export function getHeaders() {
     const token = localStorage.getItem("access_token");

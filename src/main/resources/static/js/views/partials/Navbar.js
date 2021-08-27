@@ -5,6 +5,7 @@ export default function Navbar(props) {
             <a href="/posts" data-link>Posts</a>
             <a href="/about" data-link>About</a>
             <a href="/login" data-link>Login</a>
+            <a href="/register" data-link>Register</a>
         </nav>
     `;
 }

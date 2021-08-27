@@ -4,14 +4,16 @@ When we weren't using Spring, we had an object called the `HttpServlet`. Extendi
 That servlet could have a predefined path which requests would be routed to:
 
 ```JAVA
-@WebServlet(name = "MovieServlet", urlPatterns = "/movies/*")
+@WebServlet(name = "MovieServlet", urlPatterns = "/movies")
 ```
 
-As we experienced, using Javax was *quite* verbose. We had to manually handle getting our **request body**, writing to our **response**, and converting to/from **JSON**.
+As we experienced, using Javax's Persistence API was *quite* verbose. We had to manually handle getting our **request body**, writing to our **response**, and converting to/from **JSON**.
 
 Well, fret no more! With Spring, so much of that boilerplate code will be handled by our framework! 
 
-Understand that, under the hood, Spring is mostly doing what we did for ourselves. This means you can have a greater appreciation for what a robust framework can bring to you and how it will speed up your development time!
+Understand that, under the hood, Spring is mostly doing what we did for ourselves. 
+
+By implementing servlets manually, we have a greater appreciation for what a robust framework can bring to the table and how Spring will speed up your development time!
 
 ---
 
@@ -24,7 +26,7 @@ requests for `/hello`:
 
 ```java
 @Controller
-class HelloController {
+public class HelloController {
 
     @GetMapping("/hello")
     @ResponseBody
@@ -49,36 +51,52 @@ Lets take a look at the annotations above in more detail.
   should be the body of our response
 
 ---
-## Path Variables
+### `@PathVariable`
 
-Spring allows us to use *path variables*, that is, variables that are part of
-the URI of a request, as opposed to being passed as a query string, or as part
-of the request body. Here is an example of a method that uses a path variable:
+Spring allows us to use *path variables*, that is, dynamic additions to the path of a request. 
+
+Here is an example of a method which uses a path variable:
 
 ```java
 @GetMapping("/hello/{name}")
 @ResponseBody
 public String sayHello(@PathVariable String name) {
-    return "Hello " + name + "!";
+    return "Hello, " + name + "!";
 }
 ```
 
+By adding `@PathVariable` in front of the `String name` parameter, 
+we let Spring know that the *value* of `{name}` (our actual path variable) from `@GetMapping("/hello/{name}")` 
+should be mapped to our annotated method parameter.
+
+ie: A request to `/hello/Laura` would result in sayHello() returning:
+
+```JAVA
+"Hello, Laura!"
+```
+
+`{name}` is *variable* because it can change. We can make a request to `/hello/Laura` or `/hello/Bob`. Our `sayHello()` method will treat both names the same!
+
+---
 Notice that we can also use annotations in the definition of method parameters.
 
 If the path variable we are looking for is not a string, we can simply define
-the parameter with a different type.
+the parameter with a different type
+
+For example, an `int`:
 
 ```java
-@RequestMapping(path = "/increment/{number}", method = RequestMethod.GET)
-@ResponseBody
+@GetMapping("/increment/{number}")
 public String addOne(@PathVariable int number) {
     return number + " plus one is " + (number + 1) + "!";
 }
 ```
 
-Notice in the above example we also used the `@RequestMapping` annotation, which
-is just the longer version of `@GetMapping`. There, of course, also exists a
-`@PostMapping` annotation that tells the controller to respond to POST requests.
+Making a request to `/increment/10` would result in `addOne()` returning:
+
+```JAVA
+  "10 plus one is 11!"
+```
 
 ---
 ## Further Reading

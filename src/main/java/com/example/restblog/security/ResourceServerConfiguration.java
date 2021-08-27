@@ -28,20 +28,23 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         // TODO: Flesh out remaining secured endpoints
         http
+                .cors()
+            .and()
+                .csrf()
+                    .disable()
                 .formLogin()
-                .disable()
-            .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .disable()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .authorizeRequests()
                 .antMatchers("/**", "/api/posts", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
             .and()
                 .authorizeRequests()
-                .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/api/**").authenticated()
+                    .antMatchers("/api/users/**").hasAnyAuthority("ADMIN", "USER")
+                    .antMatchers("/api/**").authenticated()
                 .anyRequest().authenticated()
             .and()
-                .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
-    }
+                .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());    }
 
 }

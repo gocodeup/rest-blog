@@ -1,5 +1,10 @@
 import createView from './createView.js';
 
+
+export default function init() {
+    loadViewOnPageRequest();
+    addListenerToNavLinks();
+}
 /**
  * When the DOM loads, build the view given the current endpoint.
  */
@@ -23,7 +28,3 @@ function addListenerToNavLinks() {
     });
 }
 
-export default function init() {
-    loadViewOnPageRequest();
-    addListenerToNavLinks();
-}

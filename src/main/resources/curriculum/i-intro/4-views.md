@@ -76,35 +76,28 @@ We must do the following to use Thymeleaf:
   tag
 
 ---
-## TODO: Create an endpoint to serve static assets
+## TODO: Create an endpoint to serve static assets for the blog app
 
-Our eventual blog application will have two "realms". One will be on 
-`/` for the purpose of only serving static assets (HTML, CSS, JS).
-
-The other will be on `/api`. Its job will be to serve up data which our static assets use to show the user content.
-
-For example, if the user wants to see all posts, they could hit `/api/posts` on a `GET` request. The backend would then serve back to the client (frontend) JSON containing all of the posts.
-
-For now, let's focus on creating an endpoint which will serve up the static assets.
-
-1. Inside `src/main/java/com.codeup.blogapp`, create a package titled `web`.
-    - This package will be responsible for holding all of our controllers.
+#### 1. Inside `src/main/java/com.codeup.blogapp`, create a package titled `web`.
+ - This package will be responsible for holding all of our controllers.
 
 
-2. Inside `web`, create a class named `ViewController`.
-    - Annotate `ViewController` with `@Controller`. This will tell Spring to treat it as a controller class.
+#### 2. Inside `web`, create a class named `ViewController`.
+ - Annotate `ViewController` with `@Controller`. This will tell Spring to treat it as a controller class.
 
 
-3. Within `ViewController`, create a public method named `showView()`. It should return a `String`.
-    - Annotate `showView()` with `@RequestMapping()`;
-    - Within `@RequestMapping()`, we will add our static view routes
-        - `{"/", "/about", "/posts", "/login", "/home"}`
-    - Have `showView()` return the following:
-    
-        ```return "forward:/index.html";```
+#### 3. Within `ViewController`, create a public method named `showView()`. It should return a `String`.
+ - Annotate `showView()` with `@RequestMapping()`;
+ - Within `@RequestMapping()`, we will add our static view routes
+     - `{"/", "/about", "/posts", "/login", "/home"}`
+ - Have `showView()` return the following:
+ 
+     ```return "forward:/index.html";```
+
    
-   
-4. When you complete the above, we have a nice bundle of starter JavaScript to help you visualize your client-side!
+#### 4. When you complete the above, we have a nice bundle of starter JavaScript to help you visualize your client-side!
+
+- Your static assets (JS, HTML, etc) are located under `src/main/resources/static`
 
 
 ---
@@ -116,4 +109,4 @@ For now, let's focus on creating an endpoint which will serve up the static asse
 - [Thymeleaf Expression Language](http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html)
 
 
-##Next Up: [Rest Controllers](../ii-rest-and-relationships/5-rest.md)
+##Next Up: [REST](../ii-rest-and-relationships/5-rest.md)
