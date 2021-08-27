@@ -1,6 +1,11 @@
 # Building Relationships
 
-Relationships are important. Maintaining them is even more important.
+```
+"Building Relationships is important. 
+ Maintaining them is even more important."
+ 
+                    - Internet Video Guy, probably
+```
 
 But let's talk about code.
 
@@ -40,17 +45,18 @@ As with previous lessons, test these changes in **Swagger** and see if you can g
 
 ---
 
-## The following is a feature list to be implemented in your blog application
+### The following is a feature list to be implemented in your blog application:
 
-### FEA-5: As a user, I can see the author of blog posts
+## FEA-7: As a user, I can see the author of blog posts
 
-- FEA-5-Story-1: Implement server-side
-- FEA-5-Story-2: Implement client-side
+### FEA-7-A: Implement server-side
+### FEA-7-B: Implement client-side
 
-### FEA-6: As a user, I can see my authored blog posts
+---
+## FEA-8: As a user, I can see my authored blog posts
 
-- FEA-5-Story-1: Implement server-side
-- FEA-5-Story-2: Implement client-side
+### FEA-8-A: Implement server-side
+### FEA-8-B: Implement client-side
 
 ---
 

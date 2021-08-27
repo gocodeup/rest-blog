@@ -4,13 +4,14 @@ This setup will involve a lot of follow-along!
 
 Be sure to pay **close attention** to details in this lesson. Naming, placement, and ordering are paramount!
 
-## The following is a feature list to be implemented in your application
+---
+### The following is a feature list to be implemented in your application
 
-### FEA-11: As a validated user, I can create, edit and delete posts.
+## FEA-14: As a validated user, I can create, edit and delete posts.
 
-### FEA-12: As an anonymous user, I can neither create, edit, nor delete posts.
+## FEA-15: As an anonymous user, I can neither create, edit, nor delete posts.
 
-### FEA-13: As an ADMIN user, I have full access to create, edit, and delete any posts.
+## FEA-16: As an ADMIN user, I have full access to create, edit, and delete any posts.
 
 ---
 ## TODO: Create the Resource Owner

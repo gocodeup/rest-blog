@@ -2,7 +2,17 @@
 
 ### *Note: for the next few lessons, we will not run our application. This is to allow for a full set of instruction before seeing the end results.*
 
+
 ---
+### This lesson will be a contiuation of: 
+## FEA-6: As a user, I can view, edit, and delete information about myself.
+
+### And will introduce, as part of this lesson:
+## FEA-12: Creation of and changes to posts will be stored
+
+---
+
+## Treat this lesson as the implementation of FEA-12:
 ## Repositories + JPA
 
 While there are many ways to interface with a database within Spring,
@@ -21,8 +31,8 @@ or login into your mysql server using the terminal client and run the following 
 ```sql
 CREATE DATABASE IF NOT EXISTS blog_db;
 
-CREATE USER 'blog_user@localhost' IDENTIFIED BY 'p@$$w0rd';
-GRANT ALL ON blog_db.* TO 'blog_user@localhost';
+CREATE USER 'blog_user'@'localhost' IDENTIFIED BY 'p@$$w0rd';
+GRANT ALL ON blog_db.* TO 'blog_user'@'localhost';
 ```
 
 Why aren't we setting up a schema yet? 
@@ -81,7 +91,7 @@ Hibernate is one implementation of the JPA specification, and
 will be what we use.
 
 ---
-## JPA annotations
+## JPA Annotations
 
 Previously, we have created POJOs (Plain old Java objects) as our *models*, that
 is, a class that represents data from our database. Now we will use some JPA
@@ -103,9 +113,11 @@ public class Post {
 }
 ```
 
-Now, hover over that `@Entity` annotation and import the `javax.persistence` package.
+Now, hover over that `@Entity` annotation and import the `javax.persistence` package. 
 
+Be *sure* not to accidentally import the Hibernate version of `@Entity`
 
+---
 ### Primary keys
 
 ### `@Id` & `@GeneratedValue`
@@ -231,9 +243,9 @@ specific ad (`getOne`), inserting or updating an ad (`save`), and deleting an
 ad (`delete`).
 
 ---
-## TODO: Implement the Data Access Layer
+## FEA-6-F: Implement persistence for the `User`
 
-1. Convert the `User` object to a JPA Entity.
+1. Convert the `User` object to an Entity.
 
 2. Inside the `data` package, create a `UserRepository` much like for `PostRepository`.
 
@@ -243,7 +255,7 @@ Why no `Category` repository? More to come!!
 ## Further Reading
 
 - [JPA Reference](https://www.oracle.com/technical-resources/articles/javaee/marx-jpa.html)
-- [JPARepository](https://www.baeldung.com/spring-data-repositories#jprepository)
+- [JPA Repository](https://www.baeldung.com/spring-data-repositories#jprepository)
 - [Defining Custom Query Methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation)
 - [Using the `@Query` Annotation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.at-query)
 - [The Object Oriented Paradigm of Data Persistence](http://www.javaworld.com/article/2077817/java-se/understanding-jpa-part-1-the-object-oriented-paradigm-of-data-persistence.html)

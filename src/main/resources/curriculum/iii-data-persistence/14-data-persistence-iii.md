@@ -54,4 +54,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 ```
 ---
 
+### Use the above examples as templates to complete:
+
+## FEA-6-G: Add `findByUsername` and `findByEmail` to `UsersRepository`
+
+---
+
 ## Next Up: [Code-First Database Design](15-code-first.md)

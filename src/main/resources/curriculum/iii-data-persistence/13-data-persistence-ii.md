@@ -12,18 +12,18 @@ records with Java objects. In this lesson we will use the ORM (Object to
 Relational Mapper) facilities of the JPA.
 
 An ORM lets us treat our relational data as if it is object-oriented. For
-example, instead of saying that we have a record for an ad in the database and
-the ad record has a column for `user_id` that identifies the user record who
-created the ad, we can simply say that an `Ad` object has a `User` property.
-Similarly, we will be able to say that a `User` object has a property `ads` that
-is a list of `Ad` objects. This allows us to focus less on the database details
+example, instead of saying that we have a record for an post in the database and
+the post record has a column for `user_id` that identifies the user record who
+created the post, we can simply say that an `Post` object has a `User` property.
+Similarly, we will be able to say that a `User` object has a property `posts` that
+is a list of `Post` objects. This allows us to focus less on the database details
 and more on our application-specific logic.
 
 ---
-## One-to-One
+## Many-to-One
 
 Mapping a one-to-one relationship with JPA is as easy as adding the `@OneToOne`
-annotation. Following our example, ads belong to a single `User`.
+annotation. Following our example, posts belong to a single `User`.
 
 ```java
 @Entity
@@ -39,7 +39,8 @@ public class Post {
     @Column
     private String content;
 
-    @OneToOne
+    @ManyToOne
+    @JsonIgnoreProperties({"posts", "password"})
     private User user;
 }
 ```
@@ -75,7 +76,8 @@ bi-directional association as follows:
 public class Post {
     /* ... */
 
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+   @OneToMany(mappedBy = "post")
+   @JsonIgnoreProperties("post")
    private List<PostImage> images;
 }
 ```
@@ -91,7 +93,6 @@ public class PostImage {
     private String path;
 
     @ManyToOne
-    @JoinColumn (name = "post_id")
     private Post post;
 }
 ```
@@ -113,7 +114,7 @@ In this case, Hibernate generated a `post_id` column from the `private Post post
 ---
 ## Many-to-Many
 
-Continuing our example, let's create a many-to-many relationship between ads and
+Continuing our example, let's create a many-to-many relationship between posts and
 categories.
 
 The mapping would look like the following:
@@ -124,13 +125,21 @@ The mapping would look like the following:
 public class Post {
     /* ... */
 
-   @ManyToMany(cascade = CascadeType.ALL)
-   @JoinTable(
-       name="post_category",
-       joinColumns={@JoinColumn(name="post_id")},
-       inverseJoinColumns={@JoinColumn(name="category_id")}
-   )
-   private List<PostCategory> categories;
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.REFRESH},
+            targetEntity = Category.class)
+    @JoinTable(
+            name="post_category",
+            joinColumns = {@JoinColumn(name = "post_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="category_id", nullable = false, updatable = false)},
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+    )
+    @JsonIgnoreProperties("posts")
+    private Collection<Category> categories;
+    
+    /* ... */
 }
 ```
 
@@ -147,8 +156,21 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "categories")
-    private List<Post> posts;
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.REFRESH},
+            targetEntity = Post.class)
+    @JoinTable(
+            name="post_category",
+            joinColumns = {@JoinColumn(name = "category_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="post_id", nullable = false, updatable = false)},
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+    )
+    @JsonIgnoreProperties("categories")
+    private Collection<Post> posts;
+    
+   /* ... */
 }
 ```
 
@@ -162,9 +184,9 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE post_category (
-    ad_id BIGINT NOT NULL,
+    post_id BIGINT NOT NULL,
     category_id BIGINT NOT NULL,
-    FOREIGN KEY (ad_id) REFERENCES posts(id),
+    FOREIGN KEY (post_id) REFERENCES posts(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 ```
@@ -183,7 +205,7 @@ Aren't ORMs great?
 
 These are *examples* of using relationships to discover information with Java code.
 
-Here, we get the username of the user who posted an Ad:
+Here, we get the username of the user who posted a Post:
 
 ```java
 Post post  = postRepository.getOne(1L);
@@ -207,8 +229,8 @@ Notice we are not setting the ID of the `Post`?
 The `id` column is auto-incrementing, so MySQL will take care of this!
 
 ---
-## The following is a feature list to be implemented in your blog application
-### FEA-9: As a user, I can see previous posts with categories which have been published. 
+### The following is a feature list to be implemented in your blog application:
+## FEA-13: As a user, I can see previous posts with categories which have been published. 
 
 If you haven't yet, complete the conversion of `User`, `Post`, and `Category` to be entities.
     
@@ -219,6 +241,9 @@ If you haven't yet, complete the conversion of `User`, `Post`, and `Category` to
     
 
 - Create repositories for each object.
+
+
+- **TEST, TEST, TEST** (in Swagger and the UI)
 
 ---
 ## Further Reading

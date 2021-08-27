@@ -14,7 +14,7 @@ above, from the rest of our application and call those methods from anywhere.
 
 
 ---
-## FEA-10: As a user, I can receive an email when new posts are created.
+## FEA-13: As a user, I can receive an email when new posts are created.
 In order to use the default email implementation with Spring you will need to add the following dependency to your `pom.xml` file:\
 
 ```xml
