@@ -16,7 +16,6 @@ public class PostsController {
 
     public PostsController(PostRepository postRepository) {
         this.postRepository = postRepository;
-        System.out.println(postRepository.findAll());
     }
 
     @GetMapping

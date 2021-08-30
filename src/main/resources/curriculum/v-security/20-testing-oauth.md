@@ -65,6 +65,7 @@ Now, it's time to ensure your user has access to the endpoints they need.
 
 - [x] Authenticated **ADMIN** user can perform any operation on any posts
 
+## Next Up: [Method-Specific Access](21-method-specific-access.md)
 
 
 

@@ -33,13 +33,13 @@ From this point, Spring will attempt to convert the incoming request body to our
 Now, we are free to use the newly acquired parameter same as any other method!
 
 ---
-## The following is a feature list to be implemented in your blog application
+### The following is a feature list to be implemented in your blog application
 
-### FEA-2: As a User, I can create posts.
+## FEA-2: As a User, I can create posts.
 
-### FEA-3: As a User, I can edit posts.
+## FEA-3: As a User, I can edit posts.
 
-### FEA-4: As a User, I can delete posts.
+## FEA-4: As a User, I can delete posts.
 
 ---
 

@@ -20,9 +20,9 @@ is a list of `Post` objects. This allows us to focus less on the database detail
 and more on our application-specific logic.
 
 ---
-## Many-to-One
+## `@ManyToOne`
 
-Mapping a one-to-one relationship with JPA is as easy as adding the `@OneToOne`
+Mapping a many-to-one relationship with JPA is as easy as adding the `@ManyToOne`
 annotation. Following our example, posts belong to a single `User`.
 
 ```java
@@ -62,7 +62,7 @@ As you can see, Hibernate generates a column name based on the property name, in
 this case, **the property `user` generates a column `user_id`**.
 
 ---
-## One-to-Many
+## `@OneToMany`
 
 A many-to-one association and a one-to-many association are the same association
 seen from the perspective of the owning and subordinate entities, respectively.
@@ -112,7 +112,7 @@ CREATE TABLE post_images (
 In this case, Hibernate generated a `post_id` column from the `private Post post;` property in `PostImage`
 
 ---
-## Many-to-Many
+## @ManyToMany
 
 Continuing our example, let's create a many-to-many relationship between posts and
 categories.

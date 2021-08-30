@@ -61,7 +61,7 @@ class UsersController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("!hasAuthority('USER') || (authentication.principal == @userRepository.findById(#id).orElse(new net.reliqs.gleeometer.users.User()).email)")
+    @PreAuthorize("!hasAuthority('USER') || (authentication.principal == @userRepository.findById(#id).orElse(new com.example.restblog.data.User()).email)")
     void update(@PathVariable Long id, @Valid @RequestBody User res) {
         User u = repository.findById(id).orElseThrow(() -> new EntityNotFoundException(User.class, "id", id.toString()));
         res.setPassword(u.getPassword());

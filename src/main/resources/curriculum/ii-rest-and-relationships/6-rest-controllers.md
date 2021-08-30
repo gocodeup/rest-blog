@@ -32,9 +32,9 @@ Most importantly, `@RestController` allows us to signify that a controller exist
 ```
 ---
 #### 2. Now, let's go create a `Post` class.
-    - On the same level as the `web` package, create a new package named `data`
-    - Inside `data`, create a class named `Post`
-    - Give `Post` the below fields, along with empty constructor, full constructor, and all getters/setters.
+  - On the same level as the `web` package, create a new package named `data`
+  - Inside `data`, create a class named `Post`
+  - Give `Post` the below fields, along with empty constructor, full constructor, and all getters/setters.
 
 ```JAVA
 private Long id;
