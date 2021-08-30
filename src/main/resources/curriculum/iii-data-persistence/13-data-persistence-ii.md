@@ -117,7 +117,7 @@ In this case, Hibernate generated a `post_id` column from the `private Post post
 Continuing our example, let's create a many-to-many relationship between posts and
 categories.
 
-The mapping would look like the following:
+The mapping for a ***Posts-to-Categories*** would look like the following:
 
 ```java
 @Entity
@@ -143,8 +143,28 @@ public class Post {
 }
 ```
 
-The key part above is `@JoinTable` with the `name`, `joinColumns`, and `inverseJoinColumns` attributes. This is helping inform how to create the eventual `Join Table` in our database.
+The key part above is `@JoinTable` with the `name` attribute, `joinColumns`, and `inverseJoinColumns` attributes. 
+This is helping inform how to create the eventual `Join Table` in our database.
 
+---
+### `fetch`, `cascade`, `targetEntity`
+
+Wondering what those attributes in `@ManyToMany` mean?
+
+Although we won't talk in-depth about each attribute's individual components, here is how they benefit us here:
+
+- `fetch` - [Fetch Types in Hibernate](https://www.baeldung.com/hibernate-lazy-eager-loading)
+  - `FetchType.LAZY` - Tells Hibernate to not load child object's data until it is *absolutely* necessary. For example, don't load the categories until the post is serialized to JSON
+  - `FetchType.EAGER` - Hibernate should load the categories on a post *immediately*. This is useful if you need to do additional logic on a post's categories before sending a response to the client.
+- `cascade`
+  - For a thorough explanation, check [this](https://www.baeldung.com/jpa-cascade-types) out!
+- `targetEntity`
+  - This attribute's value will inform Hibernate to serialize the `categories` list as a collection of `Category` objects
+  - This is useful when our Many-To-Many relationship is *bidirectional* with no true *owning* side (neither categories table nor posts table is the owner).
+
+---
+
+### From the `Category` side
 ```java
 @Entity
 @Table(name="categories")
@@ -174,7 +194,22 @@ public class Category {
 }
 ```
 
-This would generate the following MySQL code:
+Notice we are also adding the `@JoinTable` to `Category`? 
+
+Not all Many-To-Many relationships are evaluated equally. Some have an *owner* table and some do not. 
+
+In our case, we do *not* want an owner side of the relationship. 
+This means that the `Post` and `Category` are treated equally, 
+despite the relationship between them.
+
+By adding `@JoinTable` and inverting the `joinColumns` and `inverseJoinColumns` 
+(with swapped foreign key column names),
+we are instructing Hibernate to allow *transactional* operations to be performed on either the `categories` or `posts` tables without adverse consequences (such as cascading a delete of category from the post to the deleting a record from the categories table).
+
+Not *all* Many-To-Many relationships share in the behavior. For our context, it is very necessary!
+
+
+The above would generate the following MySQL code:
 
 ```sql
 CREATE TABLE categories (
@@ -190,6 +225,8 @@ CREATE TABLE post_category (
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 ```
+
+
 
 ###Of Note:
 
