@@ -118,7 +118,9 @@ and a database record must be updated before authorization can be evaluated.
 
 ---
 
+For more method-level security annotations and examples, check out this article:
+
+[Baeldung: Method Security](https://www.baeldung.com/spring-security-method-security)
 
 
-
-## Next Up: [Wrapping Up](22-wrapping-up.md)
+## Next Up: [Wrapping Up](23-wrapping-up.md)

@@ -19,15 +19,14 @@ Be sure to pay **close attention** to details in this lesson. Naming, placement,
 ### 1. Let's drop a few dependencies into our `pom.xml`:
 
 ```XML
-
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-security</artifactId>
 </dependency>
 <dependency>
-<groupId>org.springframework.security.oauth.boot</groupId>
-<artifactId>spring-security-oauth2-autoconfigure</artifactId>
-<version>2.1.0.RELEASE</version>
+  <groupId>org.springframework.security.oauth.boot</groupId>
+  <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+  <version>2.1.0.RELEASE</version>
 </dependency>
 ```
 
