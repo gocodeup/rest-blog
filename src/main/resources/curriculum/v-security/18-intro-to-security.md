@@ -27,7 +27,7 @@ The actual user wanting access to protected endpoints. They must be an *existing
 
 The user passes their credentials (email or username / password) to the *authorization server* in order to be authenticated to make requests to the *resource server*.
 
-### 2. Authentication Server 
+### 2. Authorization Server 
 
 Issues access and refresh *tokens* based on authentication/authorization of Resource Owner.
 
