@@ -43,6 +43,8 @@ That could lead to dozens of individual endpoints and a `ResourceServerConfigura
 
 In this approach, we add `@PreAuthorize` to the top of a controller method.
 
+### Of note: Your annotated method *must* not be private!
+
 This annotation can contain a boolean expression which compares the authority of a given user (via the ***token*** present in the header)
 against a set of conditions (as a ***boolean expression***). 
 
@@ -53,7 +55,7 @@ For example:
 ```JAVA
     @PostMapping
     @PreAuthorize("!hasAuthority('USER')")
-    private void create(@RequestBody User newUser) {
+    public void create(@RequestBody User newUser) {
         return repository.save(newUser);
     }
 ```
@@ -83,7 +85,7 @@ To use a method's parameter in your `@PreAuthorize` expression, simply add `#` i
 ```JAVA
     @PutMapping("/{id}/changePassword")
     @PreAuthorize("!hasAuthority('USER') || (#oldPassword != null && !#oldPassword.isEmpty())")
-    void changePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @RequestParam String newPassword) {
+    public void changePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @RequestParam String newPassword) {
 ```
 
 Above, we used the `String oldPassword` parameter in `updatePassword` to make sure the `oldPassword` was not `null` or `empty` before even invoking the method.
